@@ -11,9 +11,9 @@ html(lang="pt-br")
     link(rel="stylesheet", href="/css/bootstrap.min.css")
   body.bg-dark.text-light
     header
-      nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.d-none.d-lg-block
+      nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
         .container-fluid
-          a.navbar-brand(href="/")= globalData.siteName
+          a.navbar-brand(href="/") Meu Site
           .collapse.navbar-collapse
             ul.navbar-nav.ms-auto
               li.nav-item
@@ -35,18 +35,5 @@ html(lang="pt-br")
     footer.footer.mt-auto.py-3.bg-dark.text-light.text-center
       .container
         span &copy; 2025 Meu Site
-        nav.navbar.navbar-dark.bg-dark.fixed-bottom.d-lg-none
-          .container-fluid
-            a.navbar-brand(href="/") Meu Site
-            button.navbar-toggler(type="button", data-bs-toggle="collapse", data-bs-target="#navbarNav", aria-controls="navbarNav", aria-expanded="false", aria-label="Toggle navigation")
-              span.navbar-toggler-icon
-            #navbarNav.collapse.navbar-collapse.justify-content-end
-              ul.navbar-nav
-                li.nav-item
-                  a.nav-link(href="/") Home
-                li.nav-item
-                  a.nav-link(href="/rota/user/sim") Sobre
-                li.nav-item
-                  a.nav-link(href="/user/list") Usuários
     script(src="/js/bootstrap.bundle.min.js")
     block scripts
