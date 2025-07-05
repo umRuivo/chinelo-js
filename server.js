@@ -30,14 +30,9 @@ if(!config.apiMode) {
 }
 app.use(express.static(config.dirPublic))
 app.use(customRoutes)
-app.use(auth); // Apply authentication middleware globally
-const limiter = rateLimit({
-	windowMs: 15 * 60 * 1000, // 15 minutos
-	max: 100, // máximo 100 requisições por IP
-	message: 'Muitas requisições, tente novamente em 15 minutos'
-})
 if(config.activeLimiter) app.use(limiter)
 await autoRoutes(app)
+app.use(auth); // Apply authentication middleware globally
 app.use((req, res) => {
 	if(!config.apiMode)
 		res.status(404).render(config.pageNotFound,{
