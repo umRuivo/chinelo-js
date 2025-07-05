@@ -1,5 +1,5 @@
 export function auth(req, res, next) {
-  const publicRoutes = ['/login', '/', '/user/new', '/user/create']; // Add other public routes here
+  const publicRoutes = ['/login', '/user/new', '/user/create']; // Add other public routes here
 
   if (publicRoutes.includes(req.path)) {
     return next();
