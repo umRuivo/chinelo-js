@@ -2,15 +2,10 @@ import { Router } from 'express'
 import index from './src/controllers/index.js'
 import { loginPage } from './src/controllers/user.js'
 
-console.log("Initializing custom.routes.js");
 const router = Router()
 router.get('/', index)
 
 router.get('/login', loginPage)
-
-router.get('/test-route', (req, res) => {
-    res.send('Test route works!');
-});
 
 router.get('/logout', (req, res) => {
     req.session.destroy(err => {
