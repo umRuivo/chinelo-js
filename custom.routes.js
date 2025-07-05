@@ -8,6 +8,10 @@ router.get('/', index)
 
 router.get('/login', loginPage)
 
+router.get('/test-route', (req, res) => {
+    res.send('Test route works!');
+});
+
 router.get('/logout', (req, res) => {
     req.session.destroy(err => {
         if (err) {
