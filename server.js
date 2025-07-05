@@ -21,8 +21,6 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(auth); // Apply authentication middleware globally
-
 const PORT = process.env.PORT || config.port
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -31,6 +29,7 @@ if(!config.apiMode) {
 	app.set('views', config.urlViews)
 }
 app.use(express.static(config.dirPublic))
+app.use(customRoutes)
 app.use(auth); // Apply authentication middleware globally
 const limiter = rateLimit({
 	windowMs: 15 * 60 * 1000, // 15 minutos
