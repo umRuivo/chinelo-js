@@ -1,0 +1,27 @@
+extends layout
+
+block content
+  h1.mb-4 Lista de Usuários
+  if users && users.length > 0
+    .table-responsive
+      table.table.table-dark.table-striped.table-hover
+        thead
+          tr
+            th ID
+            th Nome
+            th Email
+            th Ações
+        tbody
+          each user in users
+            tr
+              td= user.uid
+              td= user.name
+              td= user.email
+              td
+                a.btn.btn-warning.btn-sm.me-2(href=`/user/edit/${user.uid}`) Editar
+                form.d-inline(action=`/user/delete/${user.uid}`, method="POST")
+                  button.btn.btn-danger.btn-sm(type="submit") Deletar
+  else
+    .alert.alert-info Nenhum usuário encontrado.
+  .mt-3
+    a.btn.btn-primary(href="/user/new") Criar Novo Usuário

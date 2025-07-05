@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  h1.mb-4 Login
+  form(action="/user/login", method="POST")
+    .mb-3
+      label.form-label(for="email") Email:
+      input.form-control(type="email", id="email", name="email", required)
+    .mb-3
+      label.form-label(for="password") Senha:
+      input.form-control(type="password", id="password", name="password", required)
+    button.btn.btn-primary(type="submit") Entrar

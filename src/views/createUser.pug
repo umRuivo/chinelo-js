@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  h1.mb-4 Criar Novo Usuário
+  form(action="/user/create", method="POST")
+    .mb-3
+      label.form-label(for="name") Nome:
+      input.form-control(type="text", id="name", name="name", required)
+    .mb-3
+      label.form-label(for="email") Email:
+      input.form-control(type="email", id="email", name="email", required)
+    .mb-3
+      label.form-label(for="password") Senha:
+      input.form-control(type="password", id="password", name="password", required)
+    button.btn.btn-primary(type="submit") Criar Usuário

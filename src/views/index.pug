@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  h1= title
+  p Bem-vindo ao nosso site! 
+  p= 'contador :' + cont
+  h1= globalData.author
+  if users && users.length > 0
+    h2 Usuários:
+    ul
+      each user in users
+        li= user.name + ' - ' + user.email
+  else
+    p Nenhum usuário encontrado
+
+  
+  if allRoutes && allRoutes.length > 0
+    h2 Rotas:
+    ul
+      each rota in allRoutes
+        li
+          a(href = rota)= rota
+  else
+    p Nenhuma rota encontrada
+  

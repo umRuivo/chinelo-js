@@ -1,0 +1,45 @@
+doctype html
+html(lang="pt-br")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")  
+    if title && title.length > 0
+      title=  title + " - " + globalData.siteName
+    else
+      title= globalData.siteName 
+    link(rel="stylesheet", href="/css/style.css")
+    link(rel="stylesheet", href="/css/bootstrap.min.css")
+  body.bg-dark.text-light
+    header
+      nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.d-none.d-lg-block
+        .container-fluid
+          a.navbar-brand(href="/") Meu Site
+          .collapse.navbar-collapse
+            ul.navbar-nav.ms-auto
+              li.nav-item
+                a.nav-link(href="/") Home
+              li.nav-item
+                a.nav-link(href="/rota/user/sim") Sobre
+              li.nav-item
+                a.nav-link(href="/user/list") Usuários
+
+    main.container.mt-4
+      block content
+
+    footer.footer.mt-auto.py-3.bg-dark.text-light.text-center
+      .container
+        span &copy; 2025 Meu Site
+        nav.navbar.navbar-dark.bg-dark.fixed-bottom.d-lg-none
+          .container-fluid
+            a.navbar-brand(href="/") Meu Site
+            button.navbar-toggler(type="button", data-bs-toggle="collapse", data-bs-target="#navbarNav", aria-controls="navbarNav", aria-expanded="false", aria-label="Toggle navigation")
+              span.navbar-toggler-icon
+            #navbarNav.collapse.navbar-collapse.justify-content-end
+              ul.navbar-nav
+                li.nav-item
+                  a.nav-link(href="/") Home
+                li.nav-item
+                  a.nav-link(href="/rota/user/sim") Sobre
+                li.nav-item
+                  a.nav-link(href="/user/list") Usuários
+    script(src="/js/bootstrap.bundle.min.js")

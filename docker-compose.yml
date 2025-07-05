@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  db:
+    image: mariadb:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: autoroute
+    ports:
+      - "3307:3306"
