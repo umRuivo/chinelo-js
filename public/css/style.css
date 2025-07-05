@@ -2,3 +2,8 @@
 .navbar {
   background-color: #800080 !important; /* Purple color */
 }
+
+.modal-body,
+.modal-title {
+  color: #000 !important; /* Black color for modal text */
+}
