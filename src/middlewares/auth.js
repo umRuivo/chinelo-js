@@ -1,4 +1,10 @@
 export function auth(req, res, next) {
+  const publicRoutes = ['/login', '/', '/user/new', '/user/create']; // Add other public routes here
+
+  if (publicRoutes.includes(req.path)) {
+    return next();
+  }
+
   if (!req.session.user) {
     if (req.is('json')) {
       return res.status(401).json({

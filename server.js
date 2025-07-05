@@ -5,6 +5,7 @@ import customRoutes from './custom.routes.js'
 import cors from 'cors'
 import config from './chinelo.config.js'
 import session from 'express-session'
+import { auth } from './src/middlewares/auth.js'
 
 const app = express()
 
@@ -19,6 +20,8 @@ app.use((req, res, next) => {
   res.locals.user = req.session.user;
   next();
 });
+
+app.use(auth); // Apply authentication middleware globally
 
 const PORT = process.env.PORT || config.port
 app.use(express.json())
