@@ -30,8 +30,6 @@ if(!config.apiMode) {
 }
 app.use(express.static(config.dirPublic))
 app.use(customRoutes)
-if(config.activeLimiter) app.use(limiter)
-await autoRoutes(app)
 app.use(auth); // Apply authentication middleware globally
 app.use((req, res) => {
 	if(!config.apiMode)
