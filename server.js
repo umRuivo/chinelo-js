@@ -29,6 +29,7 @@ if(!config.apiMode) {
 	app.set('views', config.urlViews)
 }
 app.use(express.static(config.dirPublic))
+console.log("Applying customRoutes");
 app.use(customRoutes)
 app.use(auth); // Apply authentication middleware globally
 app.use((req, res) => {
