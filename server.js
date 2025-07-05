@@ -29,9 +29,9 @@ app.use(express.urlencoded({ extended: true }))
 if(!config.apiMode) {
 	app.set('view engine', config.templateEngine)
 	app.set('views', config.urlViews)
-	app.use(express.static(config.dirPublic))
 }
-app.use(customRoutes)
+app.use(express.static(config.dirPublic))
+app.use(auth); // Apply authentication middleware globally
 const limiter = rateLimit({
 	windowMs: 15 * 60 * 1000, // 15 minutos
 	max: 100, // máximo 100 requisições por IP
