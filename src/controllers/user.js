@@ -145,6 +145,8 @@ export async function login(req, res) {
       return res.redirect('/user/loginPage'); // Redirect back to login on failure
     }
 
+    req.session.user = { uid: user.uid, email: user.email, name: user.name, role: user.role };
+
     // Successful login - you might want to set a session or send a JWT here
     if (req.is('json')) {
       return res.json({ success: true, message: 'Login bem-sucedido', user: { uid: user.uid, email: user.email, name: user.name } });

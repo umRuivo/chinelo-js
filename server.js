@@ -4,8 +4,22 @@ import {rateLimit} from 'express-rate-limit'
 import customRoutes from './custom.routes.js'
 import cors from 'cors'
 import config from './chinelo.config.js'
+import session from 'express-session'
 
 const app = express()
+
+app.use(session({
+  secret: 'your-secret-key', // Troque por uma chave secreta forte
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false } // Para desenvolvimento. Em produção, use true com HTTPS
+}));
+
+app.use((req, res, next) => {
+  res.locals.user = req.session.user;
+  next();
+});
+
 const PORT = process.env.PORT || config.port
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))

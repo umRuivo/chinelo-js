@@ -1,26 +1,14 @@
 export function auth(req, res, next) {
-  const token = req.headers.authorization;
-
-  if (!token) {
+  if (!req.session.user) {
     if (req.is('json')) {
       return res.status(401).json({
-        error: 'Token de acesso requerido'
+        error: 'Usuário não autenticado'
       });
     }
-    return res.redirect('/user/loginPage');
+    return res.redirect('/login');
   }
 
-  // Simulação de validação de token
-  if (token !== 'Bearer valid-token') {
-    if (req.is('json')) {
-      return res.status(401).json({
-        error: 'Token inválido'
-      });
-    }
-    return res.redirect('/user/loginPage');
-  }
-
-  req.user = { id: 1, name: 'Usuário Autenticado' };
+  req.user = req.session.user;
   next();
 }
 
@@ -33,7 +21,7 @@ export function adminAuth(req, res, next) {
 	}
 
 	// Simulação de verificação de admin
-	if (req.user.id !== 1) {
+	if (req.user.role !== 'admin') {
 		return res.status(403).json({
 			error: 'Acesso negado: apenas administradores'
 		})

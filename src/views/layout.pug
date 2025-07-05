@@ -22,6 +22,12 @@ html(lang="pt-br")
                 a.nav-link(href="/rota/user/sim") Sobre
               li.nav-item
                 a.nav-link(href="/user/list") Usuários
+              if !user
+                li.nav-item
+                  a.nav-link(href="/login") Login
+              if user
+                li.nav-item
+                  a.nav-link(href="/logout") Logout
 
     main.container.mt-4
       block content
