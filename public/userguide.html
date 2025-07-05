@@ -26,9 +26,105 @@
         </nav>
     </header>
     <main class="container mt-4">
-        <h1>User Guide</h1>
-        <p>This is a placeholder for the user guide content.</p>
-        <p>You can add more sections and details here.</p>
+        <main class="container mt-4">
+        <h1>Chinelo.js - Sistema de Auto-Rotas para Express.js</h1>
+        <p>Chinelo.js é um sistema de backend leve e extensível para Node.js e Express, projetado para simplificar a criação de APIs e aplicações web. O core do sistema é um mecanismo de roteamento automático que gera rotas RESTful a partir dos seus controllers, permitindo que você se concentre na lógica de negócios em vez de na configuração de rotas.</p>
+
+        <h2>Funcionalidades</h2>
+        <ul>
+            <li><strong>Roteamento Automático:</strong> As rotas são geradas automaticamente a partir dos arquivos e funções nos seus controllers.</li>
+            <li><strong>Convenção sobre Configuração:</strong> Inferência inteligente de métodos HTTP (GET, POST, PUT, DELETE) baseada nos nomes das funções.</li>
+            <li><strong>Configuração Centralizada:</strong> Gerencie as configurações da sua aplicação em um único arquivo (<code>chinelo.config.js</code>).</li>
+            <li><strong>Flexível:</strong> Permite a definição de rotas personalizadas, middlewares e parâmetros de rota diretamente nos controllers.</li>
+            <li><strong>Prisma ORM:</strong> Integração com o Prisma para uma interação moderna e segura com o banco de dados.</li>
+            <li><strong>View Engine:</strong> Suporte para renderização de views no servidor com Pug.</li>
+            <li><strong>Modo API:</strong> Alterne facilmente entre uma aplicação web tradicional e uma API JSON pura.</li>
+        </ul>
+
+        <h2>Como Funciona</h2>
+        <p>O sistema utiliza o <code>autoRoutes.js</code> para escanear o diretório <code>src/controllers</code>. Para cada função exportada em um arquivo de controller, uma rota é registrada no Express.</p>
+        <ul>
+            <li><strong>Nome do Controller:</strong> O nome do arquivo (sem a extensão <code>.js</code>) se torna a base da rota (ex: <code>user.js</code> → <code>/user</code>).</li>
+            <li><strong>Nome da Função:</strong> O nome da função se torna o endpoint (ex: <code>function list()</code> → <code>/user/list</code>).</li>
+            <li><strong>Método HTTP:</strong> O método é inferido pelo nome da função (<code>get</code>, <code>post</code>, <code>create</code>, <code>update</code>, <code>delete</code>) ou pode ser especificado explicitamente:
+<pre><code>minhaFuncao.httpMethod = 'POST';
+</code></pre></li>
+            <li><strong>Parâmetros de Rota:</strong> Adicione parâmetros à rota da seguinte forma:
+<pre><code>minhaFuncao.routeParams = ['id']; // Gera a rota /controller/minhaFuncao/:id
+</code></pre></li>
+            <li><strong>Middlewares:</strong> Aplique middlewares a uma rota específica:
+<pre><code>minhaFuncao.middlewares = [authMiddleware, adminMiddleware];
+</code></pre></li>
+        </ul>
+
+        <h2>Estrutura do Projeto</h2>
+<pre><code>/
+├── prisma/                 # Configuração e migrações do Prisma
+├── public/                 # Arquivos estáticos (CSS, JS, imagens)
+├── src/
+│   ├── controllers/        # Lógica de controle da aplicação
+│   ├── core/               # Core do sistema (autoRoutes.js)
+│   ├── middlewares/        # Middlewares de autenticação, validação, etc.
+│   ├── models/             # Lógica de acesso a dados (usando Prisma)
+│   └── views/              # Arquivos de template (Pug)
+├── chinelo.config.js       # Arquivo de configuração principal
+├── custom.routes.js        # Definição de rotas manuais
+├── server.js               # Ponto de entrada da aplicação
+└── package.json
+</code></pre>
+
+        <h2>Instalação e Uso</h2>
+        <ol>
+            <li><strong>Clone o repositório:</strong>
+<pre><code>git clone https://github.com/seu-usuario/chinelo-js.git
+cd chinelo-js
+</code></pre></li>
+            <li><strong>Instale as dependências:</strong>
+<pre><code>npm install
+# ou
+yarn install
+# ou
+bun install
+</code></pre></li>
+            <li><strong>Configure o ambiente:</strong>
+                <ul>
+                    <li>Renomeie o arquivo <code>.env.example</code> para <code>.env</code>.</li>
+                    <li>Adicione a URL do seu banco de dados no arquivo <code>.env</code>:
+<pre><code>DATABASE_URL="mysql://usuario:senha@servidor:porta/banco"
+</code></pre></li>
+                </ul>
+            </li>
+            <li><strong>Execute as migrações do Prisma:</strong>
+<pre><code>npx prisma migrate dev --name init
+</code></pre></li>
+            <li><strong>Inicie o servidor:</strong>
+                <ul>
+                    <li><strong>Desenvolvimento (com hot-reload):</strong>
+<pre><code>npm run dev
+</code></pre></li>
+                    <li><strong>Produção:</strong>
+<pre><code>npm start
+</code></pre></li>
+                </ul>
+            </li>
+        </ol>
+        <p>O servidor estará rodando em <code>http://localhost:3000</code> (ou na porta definida em <code>chinelo.config.js</code>).</p>
+
+        <h2>Configuração (<code>chinelo.config.js</code>)</h2>
+        <p>O arquivo <code>chinelo.config.js</code> permite customizar o comportamento da aplicação:</p>
+        <ul>
+            <li><code>port</code>: Porta do servidor.</li>
+            <li><code>urlViews</code>: Diretório das views.</li>
+            <li><code>dirPublic</code>: Diretório de arquivos públicos.</li>
+            <li><code>templateEngine</code>: Motor de templates (ex: 'pug').</li>
+            <li><code>apiMode</code>: <code>true</code> para uma API JSON, <code>false</code> para uma aplicação web com views.</li>
+            <li><code>activeLimiter</code>: Ativa ou desativa o limitador de requisições.</li>
+            <li>...e outras opções.</li>
+        </ul>
+
+        <h2>Contribuindo</h2>
+        <p>Contribuições são bem-vindas! Sinta-se à vontade para abrir uma issue ou enviar um pull request.</p>
+    </main>
     </main>
     <script src="/js/bootstrap.bundle.min.js"></script>
 </body>
