@@ -111,6 +111,7 @@ export async function update(req, res) {
 export async function deleteUser(req, res) {
 	try {
 		const { uid } = req.params
+		console.log("UID recebido para exclusão:", uid)
 		await User.delete({ where: { uid } })
 
 		if (req.is('json')) {
