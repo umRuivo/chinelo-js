@@ -19,9 +19,33 @@ block content
               td= user.email
               td
                 a.btn.btn-warning.btn-sm.me-2(href=`/user/edit/${user.uid}`) Editar
-                form.d-inline(action=`/user/deleteUser/${user.uid}`, method="POST")
-                  button.btn.btn-danger.btn-sm(type="submit") Deletar
+                button.btn.btn-danger.btn-sm(type="button", data-bs-toggle="modal", data-bs-target="#confirmDeleteModal", data-user-uid=user.uid) Deletar
   else
     .alert.alert-info Nenhum usuário encontrado.
   .mt-3
     a.btn.btn-primary(href="/user/newUser") Criar Novo Usuário
+
+//- Confirmation Modal
+#confirmDeleteModal.modal.fade(tabindex="-1", aria-labelledby="confirmDeleteModalLabel", aria-hidden="true")
+  .modal-dialog
+    .modal-content
+      .modal-header
+        h5#confirmDeleteModalLabel.modal-title Confirmar Exclusão
+        button.btn-close(type="button", data-bs-dismiss="modal", aria-label="Close")
+      .modal-body Tem certeza que deseja excluir este usuário? Esta ação não pode ser desfeita.
+      .modal-footer
+        button.btn.btn-secondary(type="button", data-bs-dismiss="modal") Cancelar
+        form#deleteForm(action="", method="POST")
+          button.btn.btn-danger(type="submit") Excluir
+
+block scripts
+  script.
+    document.addEventListener('DOMContentLoaded', function() {
+      const confirmDeleteModal = document.getElementById('confirmDeleteModal');
+      confirmDeleteModal.addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget; // Button that triggered the modal
+        const userUid = button.getAttribute('data-user-uid'); // Extract info from data-* attributes
+        const deleteForm = confirmDeleteModal.querySelector('#deleteForm');
+        deleteForm.action = `/user/deleteUser/${userUid}`;
+      });
+    });
