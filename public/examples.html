@@ -29,11 +29,11 @@
         </nav>
     </header>
     <main class="container mt-4">
-        <h1>Examples: Controller Creation</h1>
-        <p>This section demonstrates how to create a new controller in Chinelo.js.</p>
+        <h1>Exemplos: Criação de Controller</h1>
+        <p>Esta seção demonstra como criar um novo controller no Chinelo.js.</p>
 
-        <h2>Step 1: Create the Controller File</h2>
-        <p>Create a new JavaScript file in the <code>src/controllers/</code> directory. For example, let's create <code>src/controllers/example.js</code>:</p>
+        <h2>Passo 1: Crie o Arquivo do Controller</h2>
+        <p>Crie um novo arquivo JavaScript no diretório <code>src/controllers/</code>. Por exemplo, vamos criar <code>src/controllers/example.js</code>:</p>
         <pre><code class="language-javascript">// src/controllers/example.js
 
 export function hello(req, res) {
@@ -49,14 +49,14 @@ greet.httpMethod = 'GET';
 greet.routeParams = ['name'];
 </code></pre>
 
-        <h2>Step 2: Access the Routes</h2>
-        <p>Once the server is running, Chinelo.js will automatically create routes based on your controller file and function names:</p>
+        <h2>Passo 2: Acesse as Rotas</h2>
+        <p>Uma vez que o servidor esteja rodando, o Chinelo.js criará automaticamente as rotas com base no arquivo do seu controller e nos nomes das funções:</p>
         <ul>
-            <li>To access the <code>hello</code> function: <code>/example/hello</code></li>
-            <li>To access the <code>greet</code> function: <code>/example/greet/:name</code> (e.g., <code>/example/greet/John</code>) or <code>/example/greet?name=Jane</code></li>
+            <li>Para acessar a função <code>hello</code>: <code>/example/hello</code></li>
+            <li>Para acessar a função <code>greet</code>: <code>/example/greet/:name</code> (ex: <code>/example/greet/John</code>) ou <code>/example/greet?name=Jane</code></li>
         </ul>
 
-        <p>Remember to restart your server if you are not using hot-reloading for changes to take effect.</p>
+        <p>Lembre-se de reiniciar seu servidor se você não estiver usando hot-reloading para que as alterações tenham efeito.</p>
     </main>
     <script src="/js/bootstrap.bundle.min.js"></script>
 </body>
