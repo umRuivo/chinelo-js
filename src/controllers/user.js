@@ -175,7 +175,7 @@ update.middlewares = [validateUid, validateUser, auth]
 
 deleteUser.routeParams = ['uid']
 deleteUser.httpMethod = 'POST' // Changed to POST for form submission
-deleteUser.middlewares = [validateUid, auth, adminAuth]
+deleteUser.middlewares = [validateUid]
 
 show.middlewares = [validateUid]
 

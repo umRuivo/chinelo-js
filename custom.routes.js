@@ -1,8 +1,11 @@
 import { Router } from 'express'
 import index from './src/controllers/index.js'
+import { loginPage } from './src/controllers/user.js'
 
 const router = Router()
 router.get('/', index)
+
+router.get('/login', loginPage)
 
 router.get('/logout', (req, res) => {
     req.session.destroy(err => {
