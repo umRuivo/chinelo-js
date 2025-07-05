@@ -2,6 +2,7 @@ import { Router } from 'express'
 import index from './src/controllers/index.js'
 import { loginPage } from './src/controllers/user.js'
 
+console.log("Initializing custom.routes.js");
 const router = Router()
 router.get('/', index)
 
