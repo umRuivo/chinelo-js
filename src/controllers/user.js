@@ -162,13 +162,19 @@ export async function login(req, res) {
   }
 }
 
+export function ola(req, res) {
+    const {name} = req.params;
+    res.send(`Greetings, ${name}!`);
+}
+
+ola.routeParams = ['name']
 create.httpMethod = 'POST'
 create.middlewares = [validateUser,auth]
 newUser.middlewares = [auth]
 index.middlewares = [auth]
 list.middlewares = [auth]
 
-list.httpMethod = 'GET'
+// list.httpMethod = 'GET'
 
 edit.httpMethod = 'GET'
 edit.middlewares = [validateUid, auth]
