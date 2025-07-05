@@ -2,6 +2,8 @@ extends layout
 
 block content
   h1.mb-4 Login
+  if errorMessage
+    .alert.alert-danger= errorMessage
   form(action="/user/login", method="POST")
     .mb-3
       label.form-label(for="email") Email:

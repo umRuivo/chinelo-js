@@ -144,7 +144,7 @@ export async function login(req, res) {
       if (req.is('json')) {
         return res.status(401).json({ error: 'Email ou senha inválidos' });
       }
-      return res.redirect('/user/loginPage'); // Redirect back to login on failure
+      return res.render('login', { title: 'Login', errorMessage: 'Email ou senha inválidos' }); // Render login page with error
     }
 
     req.session.user = { uid: user.uid, email: user.email, name: user.name, role: user.role };
