@@ -19,7 +19,7 @@ block content
               td= user.email
               td
                 a.btn.btn-warning.btn-sm.me-2(href=`/user/edit/${user.uid}`) Editar
-                form.d-inline(action=`/user/delete/${user.uid}`, method="POST")
+                form.d-inline(action=`/user/deleteUser/${user.uid}`, method="POST")
                   button.btn.btn-danger.btn-sm(type="submit") Deletar
   else
     .alert.alert-info Nenhum usuário encontrado.
