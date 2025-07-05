@@ -30,7 +30,7 @@ if(!config.apiMode) {
 }
 app.use(express.static(config.dirPublic))
 app.use(customRoutes)
-if(config.activeLimiter) app.use(limiter)
+// if(config.activeLimiter) app.use(limiter)
 await autoRoutes(app)
 app.use(auth); // Apply authentication middleware globally
 app.use((req, res) => {
@@ -47,9 +47,16 @@ app.use((req, res) => {
 			statusCode: 404
 		})
 })
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutos
+    max: 1, // máximo 100 requisições por IP
+    message: 'Muitas requisições, tente novamente em 15 minutos'
+    })
+if(config.activeLimiter) app.use(limiter)
+
 app.locals.globalData = config.globalData
 app.use(cors())
-app.listen(PORT, '0.0.0.0' ,() => {
+app.listen(PORT, config.siteIP ,() => {
 	console.log(`\n🚀 Servidor rodando na porta ${PORT}`)
-	console.log(`\n📍 http://localhost:${PORT}`)
+	console.log(`\n📍 http://${config.siteIP}:${PORT}`)
 })

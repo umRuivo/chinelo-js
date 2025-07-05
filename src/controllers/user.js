@@ -163,12 +163,15 @@ export async function login(req, res) {
 }
 
 create.httpMethod = 'POST'
-create.middlewares = [validateUser]
+create.middlewares = [validateUser,auth]
+newUser.middlewares = [auth]
+index.middlewares = [auth]
+list.middlewares = [auth]
 
 list.httpMethod = 'GET'
 
 edit.httpMethod = 'GET'
-edit.middlewares = [validateUid]
+edit.middlewares = [validateUid, auth]
 edit.routeParams = ['uid']
 update.routeParams = ['uid']
 

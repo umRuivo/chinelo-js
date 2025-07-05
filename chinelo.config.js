@@ -7,6 +7,7 @@ export default {
 		prefix
 	},
 	port: 3000,
+	siteIP: '0.0.0.0',
 	urlViews: './src/views',
 	dirPublic: './public',
 	templateEngine: 'pug',
