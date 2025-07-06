@@ -29,7 +29,7 @@ html(lang="pt-br")
                   a.nav-link(href="/login") Login
               if user
                 li.nav-item
-                  a.nav-link(href="/logout") Logout
+                  a.nav-link(href="/logout") Logout (#{user.name})
 
     main.container.mt-4
       block content
