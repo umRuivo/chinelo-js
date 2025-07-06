@@ -1,7 +1,7 @@
 export default function index(req, res) {
-	// console.log(globalData)
 	res.render('index', {
 		title: '',
-		description: 'Esta é a página sobre nós.'
+		description: 'Esta é a página sobre nós.',
+		allRoutes: req.app.locals.allRoutes
 	})
 }
