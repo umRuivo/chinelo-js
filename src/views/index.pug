@@ -15,11 +15,15 @@ block content
 
   
   if allRoutes && allRoutes.length > 0
-    h2 Rotas:
-    ul
+    h2.mt-4 Rotas:
+    .row.row-cols-1.row-cols-md-2.row-cols-lg-3.g-4
       each rota in allRoutes
-        li
-          a(href = rota.routePath)= rota.httpMethod + ' ' + rota.routePath
+        .col
+          .card.h-100.shadow-sm
+            .card-body
+              h5.card-title
+                span.badge.bg-primary.me-2= rota.httpMethod
+                a(href=rota.routePath, class="text-decoration-none text-dark")= rota.routePath
   else
-    p Nenhuma rota encontrada
+    p.mt-4 Nenhuma rota encontrada
   
