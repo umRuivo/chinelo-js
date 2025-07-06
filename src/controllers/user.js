@@ -168,6 +168,7 @@ export function ola(req, res) {
 }
 
 ola.routeParams = ['name']
+ola.routePrefix = 'demo/'
 create.httpMethod = 'POST'
 create.middlewares = [validateUser,auth]
 newUser.middlewares = [auth]

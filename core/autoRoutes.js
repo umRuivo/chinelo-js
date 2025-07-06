@@ -1,13 +1,13 @@
 import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
-import config from '../../chinelo.config.js'
+import config from '../chinelo.config.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 let allRoutes = []
 export async function autoRoutes(app) {
-	const controllersPath = path.join(__dirname, '../controllers')
+	const controllersPath = path.join(__dirname, '../src/controllers')
 
 	if (!fs.existsSync(controllersPath)) {
 		console.log('❌ Pasta controllers não encontrada')

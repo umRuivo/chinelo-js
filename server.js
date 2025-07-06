@@ -1,5 +1,5 @@
 import express from 'express'
-import { autoRoutes } from './src/core/autoRoutes.js'
+import { autoRoutes } from './core/autoRoutes.js'
 import {rateLimit} from 'express-rate-limit'
 import customRoutes from './custom.routes.js'
 import cors from 'cors'
