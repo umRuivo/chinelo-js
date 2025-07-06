@@ -2,6 +2,8 @@ extends layout
 
 block content
   h1.mb-4 Criar Novo Usuário
+  if errorMessage
+    .alert.alert-danger= errorMessage
   form(action="/user/create" + globalData.sufix, method="POST")
     .mb-3
       label.form-label(for="name") Nome:

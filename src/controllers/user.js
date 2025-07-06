@@ -56,6 +56,16 @@ export async function edit(req, res) {
 export async function create(req, res) {
 	try {
 		const { name, email, password } = req.body
+
+		// Check if user with this email already exists
+		const existingUser = await User.findUnique({ where: { email } })
+		if (existingUser) {
+			if (req.is('json')) {
+				return res.status(409).json({ error: 'Usuário com este email já existe.' })
+			}
+			return res.render('createUser', { title: 'Criar Usuário', errorMessage: 'Usuário com este email já existe.' })
+		}
+
 		const newUser = await User.create({
 			data: {
 				name,
