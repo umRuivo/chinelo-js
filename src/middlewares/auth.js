@@ -11,7 +11,7 @@ export function auth(req, res, next) {
 				error: 'Usuário não autenticado'
 			})
 		}
-		return res.redirect('/login')
+		return res.redirect('/login' + config.routeSufix)
 	}
 
 	req.user = req.session.user

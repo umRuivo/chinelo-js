@@ -13,13 +13,13 @@ html(lang="pt-br")
     header
       nav.navbar.navbar-expand-lg.navbar-dark
         .container-fluid
-          a.navbar-brand(href="/" + globalData.sufix)= globalData.siteName
+          a.navbar-brand(href="/")= globalData.siteName
           button.navbar-toggler(type="button", data-bs-toggle="collapse", data-bs-target="#navbarNav", aria-controls="navbarNav", aria-expanded="false", aria-label="Toggle navigation")
             span.navbar-toggler-icon
           .collapse.navbar-collapse#navbarNav
             ul.navbar-nav
               li.nav-item
-                a.nav-link(href="/" + globalData.sufix) Home
+                a.nav-link(href="/") Home
               li.nav-item
                 a.nav-link(href="/rota/user/sim" + globalData.sufix) Sobre
               li.nav-item

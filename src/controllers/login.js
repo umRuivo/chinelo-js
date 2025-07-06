@@ -39,7 +39,7 @@ export async function login(req, res) {
 			return res.json({ success: true, message: 'Login bem-sucedido', user: { uid: user.uid, email: user.email, name: user.name } })
 		}
 
-		res.redirect('/user')
+		res.redirect('/user' + config.routeSufix);
 
 	} catch (error) {
 		console.error('Erro durante o login:', error)
