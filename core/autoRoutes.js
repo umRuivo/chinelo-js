@@ -64,7 +64,7 @@ function registerRoute(app, controllerName, methodName, method, mainPrefix = '')
 			expressMethod.call(app, routePath, method)
 		}
 
-		allRoutes = [...allRoutes, routePath.padEnd(30)]
+		allRoutes = [...allRoutes, { httpMethod: httpMethod.toUpperCase(), routePath: routePath }]
 		console.log(`📌 ${httpMethod.toUpperCase().padEnd(6)} ${routePath.padEnd(30)} → ${controllerName}.${methodName}()`)
 		app.locals.allRoutes = allRoutes
 	}

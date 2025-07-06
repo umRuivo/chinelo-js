@@ -19,7 +19,7 @@ block content
     ul
       each rota in allRoutes
         li
-          a(href = rota)= rota
+          a(href = rota.routePath)= rota.httpMethod + ' ' + rota.routePath
   else
     p Nenhuma rota encontrada
   
