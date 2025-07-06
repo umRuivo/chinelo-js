@@ -3,8 +3,13 @@ import index from './src/controllers/index.js'
 import { login } from './src/controllers/login.js'
 
 const router = Router()
-router.get('/', index)
 
+const customRoutesList = [
+  { httpMethod: 'GET', routePath: '/' },
+  { httpMethod: 'POST', routePath: '/login' }
+]
+
+router.get('/', index)
 router.post('/login', login)
 
-export default router
+export { router, customRoutesList }

@@ -1,7 +1,7 @@
 import express from 'express'
 import { autoRoutes } from './core/autoRoutes.js'
 import {rateLimit} from 'express-rate-limit'
-import customRoutes from './custom.routes.js'
+import { router as customRoutes, customRoutesList } from './custom.routes.js'
 import cors from 'cors'
 import config from './chinelo.config.js'
 import session from 'express-session'
@@ -32,6 +32,7 @@ app.use(express.static(config.dirPublic))
 app.use(customRoutes)
 // if(config.activeLimiter) app.use(limiter)
 await autoRoutes(app)
+app.locals.allRoutes = [...app.locals.allRoutes, ...customRoutesList]
 app.use(auth) // Apply authentication middleware globally
 app.use((req, res) => {
 	if(!config.apiMode)
