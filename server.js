@@ -13,7 +13,8 @@ app.use(session({
 	secret: 'your-secret-key', // Troque por uma chave secreta forte
 	resave: false,
 	saveUninitialized: true,
-	cookie: { secure: false } // Para desenvolvimento. Em produção, use true com HTTPS
+	rolling: true, // Reseta o tempo de expiração a cada requisição
+	cookie: { secure: false, maxAge: 10 * 60 * 1000 } // 10 minutos de inatividade
 }))
 
 app.use((req, res, next) => {
