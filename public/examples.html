@@ -47,6 +47,8 @@ export function greet(req, res) {
 
 greet.httpMethod = 'GET'; // o metodo GET é opcional, pois ele será atribuido quando nada é atribuido como metodo, 
 greet.routeParams = ['name'];
+
+greet.routePrefix = 'custom/'; // Gera a rota /custom/example/greet/:name
 </code></pre>
 
         <h2>Passo 2: Acesse as Rotas</h2>
