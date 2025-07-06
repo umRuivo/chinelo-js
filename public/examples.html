@@ -40,6 +40,10 @@ export function hello(req, res) {
     res.send('Hello from Example Controller!');
 }
 
+export function index(req, res) {
+    res.send('This is the index function!');
+}
+
 export function greet(req, res) {
     const {name} = req.params;
     res.send(`Greetings, ${name}!`);
@@ -55,6 +59,7 @@ greet.routePrefix = 'custom/'; // Gera a rota /custom/example/greet/:name
         <p>Uma vez que o servidor esteja rodando, o Chinelo.js criará automaticamente as rotas com base no arquivo do seu controller e nos nomes das funções:</p>
         <ul>
             <li>Para acessar a função <code>hello</code>: <code>/example/hello</code></li>
+            <li>Para acessar a função <code>index</code>: <code>/example</code></li>
             <li>Para acessar a função <code>greet</code>: <code>/example/greet/:name</code> (ex: <code>/example/greet/John</code>) ou <code>/example/greet?name=Jane</code></li>
         </ul>
 
