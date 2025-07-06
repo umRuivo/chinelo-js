@@ -7,3 +7,10 @@
 .modal-title {
   color: #000 !important; /* Black color for modal text */
 }
+
+@media (max-width: 767.98px) {
+  .navbar-nav {
+    display: block !important;
+    text-align: center;
+  }
+}
