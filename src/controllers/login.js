@@ -9,7 +9,7 @@ export function logout(req, res) {
   });
 }
 
-export function loginPage(req, res) {
+export function index(req, res) {
 	console.log("Acessando a página de login");
 	res.render('login', { title: 'Login' })
 }
