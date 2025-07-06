@@ -7,10 +7,10 @@ const router = Router()
 
 const customRoutesList = [
   { httpMethod: 'GET', routePath: '/', controller: 'index' },
-  { httpMethod: 'POST', routePath: '/login', controller: 'login' }
+  { httpMethod: 'POST', routePath: '/login/login', controller: 'login' }
 ]
 
 router.get('/', index)
-router.post('/login' + config.routeSufix, login)
+router.post('/login/login', login)
 
 export { router, customRoutesList }
