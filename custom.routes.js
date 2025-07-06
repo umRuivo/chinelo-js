@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import index from './src/controllers/index.js'
-import { loginPage } from './src/controllers/user.js'
+import { loginPage } from './src/controllers/login.js'
 
 const router = Router()
 router.get('/', index)

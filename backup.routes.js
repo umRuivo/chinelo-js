@@ -9,7 +9,7 @@
 📌 GET    /user                          → user.index()
 📌 GET    /user/list                     → user.list()
 📌 POST   /user/login                    → user.login()
-📌 GET    /user/loginPage                → user.loginPage()
+📌 GET    /login/loginPage                → login.loginPage()
 📌 GET    /user/newUser                  → user.newUser()
 📌 GET    /user/ola/:name                → user.ola()
 📌 GET    /user/show                     → user.show()
