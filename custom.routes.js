@@ -8,8 +8,3 @@ router.get('/', index)
 router.post('/login', login)
 
 export default router
-
-// post (create, store, post)
-// put  (update, edit, put)
-// delete (remove, delete)
-// patch (patch)

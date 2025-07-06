@@ -3,13 +3,13 @@ import { auth, adminAuth } from '../middlewares/auth.js'
 import { validateUser, validateUid } from '../middlewares/validation.js'
 
 export async function index(req, res) {
-  try {
-    const users = await User.findMany();
-    res.render('listUsers', { title: 'Lista de Usuários', users });
-  } catch (error) {
-    console.error('Erro ao listar usuários para a view:', error);
-    res.status(500).json({ error: 'Erro ao listar usuários' });
-  }
+	try {
+		const users = await User.findMany()
+		res.render('listUsers', { title: 'Lista de Usuários', users })
+	} catch (error) {
+		console.error('Erro ao listar usuários para a view:', error)
+		res.status(500).json({ error: 'Erro ao listar usuários' })
+	}
 }
 
 export async function list(req, res) {
@@ -111,7 +111,7 @@ export async function update(req, res) {
 export async function deleteUser(req, res) {
 	try {
 		const { uid } = req.params
-		console.log("UID recebido para exclusão:", uid)
+		console.log('UID recebido para exclusão:', uid)
 		await User.delete({ where: { uid } })
 
 		if (req.is('json')) {
@@ -132,8 +132,8 @@ export async function deleteUser(req, res) {
 
 
 export function ola(req, res) {
-    const {name} = req.params;
-    res.send(`Greetings, ${name}!`);
+	const {name} = req.params
+	res.send(`Greetings, ${name}!`)
 }
 
 ola.routeParams = ['name']

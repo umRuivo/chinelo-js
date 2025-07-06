@@ -15,6 +15,6 @@ export default {
 	msgNotFound: 'Ops!!! Página não encontrada!!!',
 	activeLimiter: true,
 	apiMode: false,
-	routeSufix: '',
+	routeSufix: '.html',
 	globalRoutePrefix: prefix
 }

@@ -10,16 +10,16 @@ import { auth } from './src/middlewares/auth.js'
 const app = express()
 
 app.use(session({
-  secret: 'your-secret-key', // Troque por uma chave secreta forte
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: false } // Para desenvolvimento. Em produção, use true com HTTPS
-}));
+	secret: 'your-secret-key', // Troque por uma chave secreta forte
+	resave: false,
+	saveUninitialized: true,
+	cookie: { secure: false } // Para desenvolvimento. Em produção, use true com HTTPS
+}))
 
 app.use((req, res, next) => {
-  res.locals.user = req.session.user;
-  next();
-});
+	res.locals.user = req.session.user
+	next()
+})
 
 const PORT = process.env.PORT || config.port
 app.use(express.json())
@@ -32,7 +32,7 @@ app.use(express.static(config.dirPublic))
 app.use(customRoutes)
 // if(config.activeLimiter) app.use(limiter)
 await autoRoutes(app)
-app.use(auth); // Apply authentication middleware globally
+app.use(auth) // Apply authentication middleware globally
 app.use((req, res) => {
 	if(!config.apiMode)
 		res.status(404).render(config.pageNotFound,{
@@ -48,10 +48,10 @@ app.use((req, res) => {
 		})
 })
 const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutos
-    max: 1, // máximo 100 requisições por IP
-    message: 'Muitas requisições, tente novamente em 15 minutos'
-    })
+	windowMs: 15 * 60 * 1000, // 15 minutos
+	max: 1, // máximo 100 requisições por IP
+	message: 'Muitas requisições, tente novamente em 15 minutos'
+})
 if(config.activeLimiter) app.use(limiter)
 
 app.locals.globalData = config.globalData
