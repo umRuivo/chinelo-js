@@ -4,7 +4,7 @@ block content
   h1.mb-4 Login
   if errorMessage
     .alert.alert-danger= errorMessage
-  form(action="/user/login", method="POST")
+  form(action="/login", method="POST")
     .mb-3
       label.form-label(for="email") Email:
       input.form-control(type="email", id="email", name="email", required)
