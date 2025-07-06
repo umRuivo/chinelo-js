@@ -15,7 +15,7 @@ block content
   
   if allRoutes && Object.keys(allRoutes).length > 0
     h2.mt-4 Rotas:
-    each controllerName, routes in allRoutes
+    each routes, controllerName in allRoutes
       h3.mt-3= controllerName
       .row.row-cols-1.row-cols-md-2.row-cols-lg-3.g-4
         each rota in routes
