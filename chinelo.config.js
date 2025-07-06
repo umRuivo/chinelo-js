@@ -1,5 +1,5 @@
 const prefix = ''
-const sufix = '.jsp'
+const sufix = ''
 
 export default {
 	globalData: {

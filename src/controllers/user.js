@@ -1,6 +1,7 @@
 import { User } from '../models/User.js'
 import { auth, adminAuth } from '../middlewares/auth.js'
 import { validateUser, validateUid } from '../middlewares/validation.js'
+import config from './../../chinelo.config.js'
 
 export async function index(req, res) {
 	try {
@@ -155,7 +156,7 @@ update.httpMethod = 'POST' // Changed to POST for form submission
 update.middlewares = [validateUid, validateUser, auth]
 
 deleteUser.routeParams = ['uid']
-deleteUser.httpMethod = 'POST' // Changed to POST for form submission
+// deleteUser.httpMethod = 'POST' // Changed to POST for form submission
 deleteUser.middlewares = []
 
 show.middlewares = [validateUid]
