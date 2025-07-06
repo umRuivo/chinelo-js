@@ -156,7 +156,7 @@ update.httpMethod = 'POST' // Changed to POST for form submission
 update.middlewares = [validateUid, validateUser, auth]
 
 deleteUser.routeParams = ['uid']
-// deleteUser.httpMethod = 'POST' // Changed to POST for form submission
+deleteUser.httpMethod = 'POST' // Changed to POST for form submission
 deleteUser.middlewares = []
 
 show.middlewares = [validateUid]
