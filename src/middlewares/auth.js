@@ -1,3 +1,5 @@
+import config from '../../chinelo.config.js'
+
 export function auth(req, res, next) {
 	const publicRoutes = ['/login', '/user/new', '/user/create'] // Add other public routes here
 
