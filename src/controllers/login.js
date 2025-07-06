@@ -1,4 +1,5 @@
 import { User } from '../models/User.js'
+import config from '../../chinelo.config.js'
 
 function msg(params) {
 	console.log(params)
@@ -9,7 +10,7 @@ export function logout(req, res) {
 		if (err) {
 			return res.status(500).send('Failed to log out')
 		}
-		res.redirect('/login')
+		res.redirect('/login' + config.routeSufix)
 	})
 }
 

@@ -13,23 +13,23 @@ html(lang="pt-br")
     header
       nav.navbar.navbar-expand-lg.navbar-dark
         .container-fluid
-          a.navbar-brand(href="/")= globalData.siteName
+          a.navbar-brand(href="/" + globalData.sufix)= globalData.siteName
           button.navbar-toggler(type="button", data-bs-toggle="collapse", data-bs-target="#navbarNav", aria-controls="navbarNav", aria-expanded="false", aria-label="Toggle navigation")
             span.navbar-toggler-icon
           .collapse.navbar-collapse#navbarNav
             ul.navbar-nav
               li.nav-item
-                a.nav-link(href="/") Home
+                a.nav-link(href="/" + globalData.sufix) Home
               li.nav-item
-                a.nav-link(href="/rota/user/sim") Sobre
+                a.nav-link(href="/rota/user/sim" + globalData.sufix) Sobre
               li.nav-item
-                a.nav-link(href="/user/list") Usuários
+                a.nav-link(href="/user/list" + globalData.sufix) Usuários
               if !user
                 li.nav-item
-                  a.nav-link(href="/login") Login
+                  a.nav-link(href="/login" + globalData.sufix) Login
               if user
                 li.nav-item
-                  a.nav-link(href="/login/logout") Logout (#{user.name})
+                  a.nav-link(href="/login/logout" + globalData.sufix) Logout (#{user.name})
 
     main.container.mt-4
       block content

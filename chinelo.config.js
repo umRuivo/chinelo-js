@@ -1,10 +1,12 @@
 const prefix = ''
+const sufix = '.jsp'
 
 export default {
 	globalData: {
 		siteName: 'Chinelo JS',
 		author: '@junior.php',
-		prefix
+		prefix: prefix,
+		sufix: sufix
 	},
 	port: 3000,
 	siteIP: '0.0.0.0',
@@ -15,6 +17,6 @@ export default {
 	msgNotFound: 'Ops!!! Página não encontrada!!!',
 	activeLimiter: true,
 	apiMode: false,
-	routeSufix: '',
+	routeSufix: sufix,
 	globalRoutePrefix: prefix
 }
