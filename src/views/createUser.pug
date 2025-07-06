@@ -2,7 +2,7 @@ extends layout
 
 block content
   h1.mb-4 Criar Novo Usuário
-  form(action="/user/create", method="POST")
+  form(action="/user/create" + globalData.sufix, method="POST")
     .mb-3
       label.form-label(for="name") Nome:
       input.form-control(type="text", id="name", name="name", required)

@@ -2,7 +2,7 @@ extends layout
 
 block content
   h1.mb-4 Editar Usuário
-  form(action=`/user/update/${user.uid}`, method="POST")
+  form(action=`/user/update/${user.uid}` + globalData.sufix, method="POST")
     .mb-3
       label.form-label(for="name") Nome:
       input.form-control(type="text", id="name", name="name", value=user.name, required)
