@@ -32,7 +32,13 @@ app.use(express.static(config.dirPublic))
 app.use(customRoutes)
 // if(config.activeLimiter) app.use(limiter)
 await autoRoutes(app)
-app.locals.allRoutes = [...app.locals.allRoutes, ...customRoutesList]
+Object.keys(app.locals.allRoutes).forEach(controllerName => {
+  customRoutesList.forEach(customRoute => {
+    if (customRoute.controller === controllerName) {
+      app.locals.allRoutes[controllerName].push(customRoute);
+    }
+  });
+});
 app.use(auth) // Apply authentication middleware globally
 app.use((req, res) => {
 	if(!config.apiMode)

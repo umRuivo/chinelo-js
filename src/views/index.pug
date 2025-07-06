@@ -3,7 +3,6 @@ extends layout
 block content
   h1= title
   p Bem-vindo ao nosso site! 
-  p= 'contador :' + cont
   h1= globalData.author
   if users && users.length > 0
     h2 Usuários:
@@ -14,16 +13,18 @@ block content
     p Nenhum usuário encontrado
 
   
-  if allRoutes && allRoutes.length > 0
+  if allRoutes && Object.keys(allRoutes).length > 0
     h2.mt-4 Rotas:
-    .row.row-cols-1.row-cols-md-2.row-cols-lg-3.g-4
-      each rota in allRoutes
-        .col
-          .card.h-100.shadow-sm
-            .card-body
-              h5.card-title
-                span.badge.bg-primary.me-2= rota.httpMethod
-                a(href=rota.routePath, class="text-decoration-none text-dark")= rota.routePath
+    each controllerName, routes in allRoutes
+      h3.mt-3= controllerName
+      .row.row-cols-1.row-cols-md-2.row-cols-lg-3.g-4
+        each rota in routes
+          .col
+            .card.h-100.shadow-sm
+              .card-body
+                h5.card-title
+                  span.badge.bg-primary.me-2= rota.httpMethod
+                  a(href=rota.routePath, class="text-decoration-none text-dark")= rota.routePath
   else
     p.mt-4 Nenhuma rota encontrada
   

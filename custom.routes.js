@@ -5,8 +5,8 @@ import { login } from './src/controllers/login.js'
 const router = Router()
 
 const customRoutesList = [
-  { httpMethod: 'GET', routePath: '/' },
-  { httpMethod: 'POST', routePath: '/login' }
+  { httpMethod: 'GET', routePath: '/', controller: 'index' },
+  { httpMethod: 'POST', routePath: '/login', controller: 'login' }
 ]
 
 router.get('/', index)

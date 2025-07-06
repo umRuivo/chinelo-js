@@ -1,5 +1,9 @@
 import { User } from '../models/User.js'
 
+function msg(params) {
+	console.log(params)
+}
+
 export function logout(req, res) {
 	req.session.destroy((err) => {
 		if (err) {
@@ -10,7 +14,7 @@ export function logout(req, res) {
 }
 
 export function index(req, res) {
-	console.log('Acessando a página de login')
+	msg('Acessando a página de login')
 	res.render('login', { title: 'Login' })
 }
 

@@ -5,7 +5,7 @@ import config from '../chinelo.config.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
-let allRoutes = []
+let allRoutes = {}
 export async function autoRoutes(app) {
 	const controllersPath = path.join(__dirname, '../src/controllers')
 
@@ -64,9 +64,13 @@ function registerRoute(app, controllerName, methodName, method, mainPrefix = '')
 			expressMethod.call(app, routePath, method)
 		}
 
-		allRoutes = [...allRoutes, { httpMethod: httpMethod.toUpperCase(), routePath: routePath }]
+		if (!allRoutes[controllerName]) {
+			allRoutes[controllerName] = []
+		}
+		allRoutes[controllerName].push({ httpMethod: httpMethod.toUpperCase(), routePath: routePath })
 		console.log(`📌 ${httpMethod.toUpperCase().padEnd(6)} ${routePath.padEnd(30)} → ${controllerName}.${methodName}()`)
 		app.locals.allRoutes = allRoutes
+
 	}
 }
 
