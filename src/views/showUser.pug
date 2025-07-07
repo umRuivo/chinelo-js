@@ -1,16 +1,18 @@
 extends layout
 
 block content
-  h1.mb-4 Perfil do Usuário
-  .card.bg-dark.text-light.shadow-sm
-    .card-body
-      h5.card-title= user.name
-      p.card-text
-        strong Email:
-        | #{user.email}
-      p.card-text
-        strong UID:
-        | #{user.uid}
-      .mt-3
-        a.btn.btn-warning.me-2(href=`/user/edit/${user.uid}` + globalData.sufix) Editar
-        a.btn.btn-secondary(href="/user/list" + globalData.sufix) Voltar para a Lista
+  h1.mb-4.text-center Perfil do Usuário
+  .row.justify-content-center
+    .col-md-8.col-lg-6
+      .card.bg-dark.text-light.shadow-lg.border-0.rounded-3
+        .card-body.p-4
+          h5.card-title.text-center.mb-4.display-6= user.name
+          .mb-3
+            strong.d-block.mb-1 Email:
+            p.card-text.lead.ms-3= user.email
+          .mb-4
+            strong.d-block.mb-1 UID:
+            p.card-text.lead.ms-3= user.uid
+          .d-grid.gap-2
+            a.btn.btn-warning.btn-lg(href=`/user/edit/${user.uid}` + globalData.sufix) Editar Perfil
+            a.btn.btn-secondary.btn-lg(href="/user/list" + globalData.sufix) Voltar para a Lista de Usuários
