@@ -43,8 +43,8 @@ html(lang="pt-br")
     if user
       script.
         document.addEventListener('DOMContentLoaded', function() {
-          let sessionTimeout = parseInt(timerElement.dataset.sessionTime) * 60;
           let timerElement = document.getElementById('sessionTimer');
+          let sessionTimeout = parseInt(timerElement.dataset.sessionTime) * 60;
 
           function updateTimer() {
             let minutes = Math.floor(sessionTimeout / 60);
