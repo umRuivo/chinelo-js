@@ -30,7 +30,7 @@ html(lang="pt-br")
                 li.nav-item
                   a.nav-link(href="/login/logout" + globalData.sufix) Logout (#{user.name})
                 li.nav-item.ms-3
-                  span#sessionTimer.nav-link.text-warning(data-session-time=globalData.sessionTime)
+                  span#sessionTimer.nav-link.text-warning
 
     main.container.mt-4
       block content
@@ -43,7 +43,7 @@ html(lang="pt-br")
     if user
       script.
         document.addEventListener('DOMContentLoaded', function() {
-          let sessionTimeout = parseInt(timerElement.dataset.sessionTime) * 60;
+          let sessionTimeout = globalData.sessionTime * 60;
           let timerElement = document.getElementById('sessionTimer');
 
           function updateTimer() {
