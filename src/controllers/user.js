@@ -28,14 +28,12 @@ export async function show(req, res) {
 		const { uid } = req.params
 		const user = await User.findUnique({ where: { uid } })
 		if (!user) {
-			return res.status(404).json({ error: 'Usuário não encontrado' })
+			return res.status(404).render('notfound', { title: 'Usuário não encontrado', message: 'Usuário não encontrado', statusCode: 404, globalData: req.app.locals.globalData })
 		}
-		res.json({
-			success: true,
-			data: user
-		})
+		res.render('showUser', { title: 'Perfil do Usuário', user, globalData: req.app.locals.globalData })
 	} catch (error) {
-		res.status(500).json({ error: 'Erro ao buscar usuário' })
+		console.error('Erro ao buscar usuário para a view:', error)
+		res.status(500).render('notfound', { title: 'Erro', message: 'Erro ao buscar usuário', statusCode: 500, globalData: req.app.locals.globalData })
 	}
 }
 
@@ -160,6 +158,7 @@ edit.httpMethod = 'GET'
 edit.middlewares = [validateUid, auth]
 edit.routeParams = ['uid']
 update.routeParams = ['uid']
+show.routeParams = ['uid']
 
 update.httpMethod = 'POST'
 update.middlewares = [validateUid, validateUser, auth]

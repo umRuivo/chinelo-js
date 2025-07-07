@@ -19,9 +19,9 @@ html(lang="pt-br")
           .collapse.navbar-collapse#navbarNav
             ul.navbar-nav
               li.nav-item
-                a.nav-link(href="/" + globalData.sufix) Início
+                a.nav-link(href="/") Início
               li.nav-item
-                a.nav-link(href="/user/list" + globalData.sufix) Usuários
+                a.nav-link(href="/user/" + globalData.sufix) Usuários
               if !user
                 li.nav-item
                   a.nav-link(href="/login" + globalData.sufix) Login
@@ -44,7 +44,7 @@ html(lang="pt-br")
       script.
         document.addEventListener('DOMContentLoaded', function() {
           let timerElement = document.getElementById('sessionTimer');
-          let sessionTimeout = parseInt(timerElement.dataset.sessionTime) * 60;
+          let sessionTimeout = 1 * 60;
 
           function updateTimer() {
             let minutes = Math.floor(sessionTimeout / 60);

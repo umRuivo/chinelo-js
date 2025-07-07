@@ -17,6 +17,7 @@ block content
               td= user.email
               td
                 a.btn.btn-warning.btn-sm.me-2(href=`/user/edit/${user.uid}`) Editar
+                a.btn.btn-info.btn-sm.me-2(href=`/user/show/${user.uid}` + globalData.sufix) Ver Perfil
                 button.btn.btn-danger.btn-sm(type="button", data-bs-toggle="modal", data-bs-target="#confirmDeleteModal", data-user-uid=user.uid) Deletar
   else
     .alert.alert-info Nenhum usuário encontrado.

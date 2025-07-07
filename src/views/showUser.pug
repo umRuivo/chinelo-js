@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  h1.mb-4 Perfil do Usuário
+  .card.bg-dark.text-light.shadow-sm
+    .card-body
+      h5.card-title= user.name
+      p.card-text
+        strong Email:
+        | #{user.email}
+      p.card-text
+        strong UID:
+        | #{user.uid}
+      .mt-3
+        a.btn.btn-warning.me-2(href=`/user/edit/${user.uid}` + globalData.sufix) Editar
+        a.btn.btn-secondary(href="/user/list" + globalData.sufix) Voltar para a Lista
