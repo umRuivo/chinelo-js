@@ -43,7 +43,7 @@ html(lang="pt-br")
     if user
       script.
         document.addEventListener('DOMContentLoaded', function() {
-          let sessionTimeout = globalData.sessionTime * 60;
+          let sessionTimeout = 1 * 60; // 10 minutes in seconds
           let timerElement = document.getElementById('sessionTimer');
 
           function updateTimer() {

@@ -6,8 +6,7 @@ export default {
 		siteName: 'Chinelo JS',
 		author: '@junior.php',
 		prefix: prefix,
-		sufix: sufix,
-		sessionTime: 2
+		sufix: sufix
 	},
 	port: 3000,
 	siteIP: '0.0.0.0',

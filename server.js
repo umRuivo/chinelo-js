@@ -14,7 +14,7 @@ app.use(session({
 	resave: false,
 	saveUninitialized: true,
 	rolling: true,
-	cookie: { secure: false, maxAge: config.globalData.sessionTime * 60 * 1000 }
+	cookie: { secure: false, maxAge: 1 * 60 * 1000 }
 }))
 
 app.use((req, res, next) => {
