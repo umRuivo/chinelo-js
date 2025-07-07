@@ -10,11 +10,11 @@ import { auth } from './src/middlewares/auth.js'
 const app = express()
 
 app.use(session({
-	secret: 'your-secret-key', // Troque por uma chave secreta forte
+	secret: 'your-secret-key',
 	resave: false,
 	saveUninitialized: true,
-	rolling: true, // Reseta o tempo de expiração a cada requisição
-	cookie: { secure: false, maxAge: 10 * 60 * 1000 } // 10 minutos de inatividade
+	rolling: true,
+	cookie: { secure: false, maxAge: 1 * 60 * 1000 }
 }))
 
 app.use((req, res, next) => {
@@ -31,7 +31,7 @@ if(!config.apiMode) {
 }
 app.use(express.static(config.dirPublic))
 app.use(customRoutes)
-// if(config.activeLimiter) app.use(limiter)
+
 await autoRoutes(app)
 Object.keys(app.locals.allRoutes).forEach(controllerName => {
   customRoutesList.forEach(customRoute => {
@@ -40,7 +40,7 @@ Object.keys(app.locals.allRoutes).forEach(controllerName => {
     }
   });
 });
-app.use(auth) // Apply authentication middleware globally
+app.use(auth)
 app.use((req, res) => {
 	if(!config.apiMode)
 		res.status(404).render(config.pageNotFound,{
@@ -56,8 +56,8 @@ app.use((req, res) => {
 		})
 })
 const limiter = rateLimit({
-	windowMs: 15 * 60 * 1000, // 15 minutos
-	max: 1, // máximo 100 requisições por IP
+	windowMs: 15 * 60 * 1000,
+	max: 1,
 	message: 'Muitas requisições, tente novamente em 15 minutos'
 })
 if(config.activeLimiter) app.use(limiter)
@@ -66,5 +66,6 @@ app.locals.globalData = config.globalData
 app.use(cors())
 app.listen(PORT, config.siteIP ,() => {
 	console.log(`\n🚀 Servidor rodando na porta ${PORT}`)
-	console.log(`\n📍 http://${config.siteIP}:${PORT}`)
+	console.log(`
+📍 http://${config.siteIP}:${PORT}`)
 })

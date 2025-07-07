@@ -1,11 +1,11 @@
-/* Custom styles */
+
 .navbar {
-  background-color: #800080 !important; /* Purple color */
+  background-color: #800080 !important;
 }
 
 .modal-body,
 .modal-title {
-  color: #000 !important; /* Black color for modal text */
+  color: #000 !important;
 }
 
 @media (max-width: 767.98px) {

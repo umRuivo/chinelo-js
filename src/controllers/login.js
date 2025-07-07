@@ -25,16 +25,16 @@ export async function login(req, res) {
 
 		const user = await User.findUnique({ where: { email } })
 
-		if (!user || user.password !== password) { // WARNING: Insecure password comparison. Use bcrypt for production!
+		if (!user || user.password !== password) {
 			if (req.is('json')) {
 				return res.status(401).json({ error: 'Email ou senha inválidos' })
 			}
-			return res.render('login', { title: 'Login', errorMessage: 'Email ou senha inválidos' }) // Render login page with error
+			return res.render('login', { title: 'Login', errorMessage: 'Email ou senha inválidos' });
 		}
 
 		req.session.user = { uid: user.uid, email: user.email, name: user.name, role: user.role }
 
-		// Successful login - you might want to set a session or send a JWT here
+		
 		if (req.is('json')) {
 			return res.json({ success: true, message: 'Login bem-sucedido', user: { uid: user.uid, email: user.email, name: user.name } })
 		}

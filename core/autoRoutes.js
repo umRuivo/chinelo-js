@@ -25,11 +25,8 @@ export async function autoRoutes(app) {
 
 		try {
 			const controller = await import(`file://${controllerPath}`)
-
-			// Extrai o prefixo principal do controller (se existir)
 			const mainPrefix = controller.mainPrefix || ''
 
-			// Itera sobre todas as funções exportadas do controller
 			Object.keys(controller).forEach(methodName => {
 				const method = controller[methodName]
 
@@ -54,7 +51,6 @@ function registerRoute(app, controllerName, methodName, method, mainPrefix = '')
 	const routePath = buildRoutePath(controllerName, methodName, routePrefix, mainPrefix, method)
 	const middlewares = extractMiddlewares(method)
 
-	// Registra a rota no Express
 	const expressMethod = app[httpMethod.toLowerCase()]
 
 	if (expressMethod) {
@@ -76,17 +72,13 @@ function registerRoute(app, controllerName, methodName, method, mainPrefix = '')
 
 
 function buildRoutePath(controllerName, methodName, routePrefix, mainPrefix, method) {
-	// Constrói o nome do controller com os prefixos
-	// mainPrefix é aplicado primeiro, depois routePrefix (se existir)
 	if(controllerName == 'index') return
 	let finalControllerName = controllerName
 
-	// Aplica o prefixo principal do controller
 	if (mainPrefix && !routePrefix) {
 		finalControllerName = `${mainPrefix}${controllerName}`
 	}
 
-	// Aplica o prefixo específico do método (sobrescreve o mainPrefix se existir)
 	if (routePrefix && !mainPrefix) {
 		finalControllerName = `${routePrefix}${controllerName}`
 	}
@@ -95,10 +87,8 @@ function buildRoutePath(controllerName, methodName, routePrefix, mainPrefix, met
 		finalControllerName = `${mainPrefix}${routePrefix}${controllerName}`
 	}
 
-	// Extrai os parâmetros definidos na função
 	const routeParams = extractRouteParams(method)
 
-	// Constrói o caminho da rota
 	let routePath
 	if (methodName === 'index') {
 		routePath = `/${config.globalRoutePrefix}${finalControllerName}${config.routeSufix}`
@@ -106,7 +96,6 @@ function buildRoutePath(controllerName, methodName, routePrefix, mainPrefix, met
 		routePath = `/${config.globalRoutePrefix}${finalControllerName}/${methodName}${config.routeSufix}`
 	}
 
-	// Adiciona os parâmetros à rota se existirem
 	if (routeParams.length > 0) {
 		const paramsString = routeParams.map(param => `:${param}`).join('/')
 
@@ -121,12 +110,10 @@ function buildRoutePath(controllerName, methodName, routePrefix, mainPrefix, met
 }
 
 function extractHttpMethod(method, methodName) {
-	// Verifica se a função tem uma propriedade httpMethod definida
 	if (method.httpMethod) {
 		return method.httpMethod
 	}
 
-	// Inferência baseada no nome do método
 	const methodLower = methodName.toLowerCase()
 
 	if (methodLower.includes('create') || methodLower.includes('store') || methodLower.startsWith('post')) {
@@ -143,16 +130,13 @@ function extractHttpMethod(method, methodName) {
 }
 
 function extractRoutePrefix(method) {
-	// Retorna o prefixo de rota definido na propriedade da função
 	return method.routePrefix || ''
 }
 
 function extractRouteParams(method) {
-	// Retorna parâmetros definidos na propriedade da função
 	return method.routeParams || []
 }
 
 function extractMiddlewares(method) {
-	// Retorna middlewares definidos na propriedade da função
 	return method.middlewares || []
 }

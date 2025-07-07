@@ -57,7 +57,6 @@ export async function create(req, res) {
 	try {
 		const { name, email, password } = req.body
 
-		// Check if user with this email already exists
 		const existingUser = await User.findUnique({ where: { email } })
 		if (existingUser) {
 			if (req.is('json')) {
@@ -155,18 +154,18 @@ newUser.middlewares = [auth]
 index.middlewares = [auth]
 list.middlewares = [auth]
 
-// list.httpMethod = 'GET'
+
 
 edit.httpMethod = 'GET'
 edit.middlewares = [validateUid, auth]
 edit.routeParams = ['uid']
 update.routeParams = ['uid']
 
-update.httpMethod = 'POST' // Changed to POST for form submission
+update.httpMethod = 'POST'
 update.middlewares = [validateUid, validateUser, auth]
 
 deleteUser.routeParams = ['uid']
-deleteUser.httpMethod = 'POST' // Changed to POST for form submission
+deleteUser.httpMethod = 'POST'
 deleteUser.middlewares = []
 
 show.middlewares = [validateUid]
