@@ -19,14 +19,14 @@ html(lang="pt-br")
           .collapse.navbar-collapse#navbarNav
             ul.navbar-nav
               li.nav-item
-                a.nav-link(href="/") Início
+                a.nav-link(href="/" + globalData.sufix) Início
               li.nav-item
                 a.nav-link(href="/user/list" + globalData.sufix) Usuários
               if !user
                 li.nav-item
                   a.nav-link(href="/login" + globalData.sufix) Login
               if user
-                li.nav-item
+                li.nav-item.ms-auto
                   a.nav-link(href="/login/logout" + globalData.sufix) Logout (#{user.name})
                 li.nav-item.ms-3
                   span#sessionTimer.nav-link.text-warning
