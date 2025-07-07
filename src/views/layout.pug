@@ -17,7 +17,7 @@ html(lang="pt-br")
           button.navbar-toggler(type="button", data-bs-toggle="collapse", data-bs-target="#navbarNav", aria-controls="navbarNav", aria-expanded="false", aria-label="Toggle navigation")
             span.navbar-toggler-icon
           .collapse.navbar-collapse#navbarNav
-            ul.navbar-nav
+            ul.navbar-nav.ms-auto
               li.nav-item
                 a.nav-link(href="/" + globalData.sufix) Início
               li.nav-item
@@ -26,7 +26,7 @@ html(lang="pt-br")
                 li.nav-item
                   a.nav-link(href="/login" + globalData.sufix) Login
               if user
-                li.nav-item.ms-auto
+                li.nav-item
                   a.nav-link(href="/login/logout" + globalData.sufix) Logout (#{user.name})
                 li.nav-item.ms-3
                   span#sessionTimer.nav-link.text-warning
