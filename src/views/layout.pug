@@ -29,6 +29,8 @@ html(lang="pt-br")
               ul.navbar-nav.ms-auto
                 li.nav-item
                   a.nav-link(href="/login/logout" + globalData.sufix) Logout (#{user.name})
+                li.nav-item.ms-3
+                  span#sessionTimer.nav-link.text-warning(data-session-time=globalData.sessionTime)
 
     main.container.mt-4
       block content
@@ -38,3 +40,25 @@ html(lang="pt-br")
         span &copy; 2025 Meu Site
     script(src="/js/bootstrap.bundle.min.js")
     block scripts
+    if user
+      script.
+        document.addEventListener('DOMContentLoaded', function() {
+          let sessionTimeout = parseInt(timerElement.dataset.sessionTime) * 60;
+          let timerElement = document.getElementById('sessionTimer');
+
+          function updateTimer() {
+            let minutes = Math.floor(sessionTimeout / 60);
+            let seconds = sessionTimeout % 60;
+            timerElement.textContent = `Sessão: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+            if (sessionTimeout <= 0) {
+              clearInterval(countdown);
+              window.location.href = '/login/logout' + '#{globalData.sufix}';
+            } else {
+              sessionTimeout--;
+            }
+          }
+
+          let countdown = setInterval(updateTimer, 1000);
+          updateTimer();
+        });
