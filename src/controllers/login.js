@@ -16,7 +16,7 @@ export function logout(req, res) {
 
 export function index(req, res) {
 	msg('Acessando a página de login')
-	res.render('login', { title: 'Login' })
+	res.render('login', { title: 'Login', globalData: req.app.locals.globalData })
 }
 
 export async function login(req, res) {
@@ -29,7 +29,7 @@ export async function login(req, res) {
 			if (req.is('json')) {
 				return res.status(401).json({ error: 'Email ou senha inválidos' })
 			}
-			return res.render('login', { title: 'Login', errorMessage: 'Email ou senha inválidos' });
+			return res.render('login', { title: 'Login', errorMessage: 'Email ou senha inválidos', globalData: req.app.locals.globalData });
 		}
 
 		req.session.user = { uid: user.uid, email: user.email, name: user.name, role: user.role }

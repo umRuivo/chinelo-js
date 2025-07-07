@@ -6,7 +6,7 @@ import config from './../../chinelo.config.js'
 export async function index(req, res) {
 	try {
 		const users = await User.findMany()
-		res.render('listUsers', { title: 'Lista de Usuários', users })
+		res.render('listUsers', { title: 'Lista de Usuários', users, globalData: req.app.locals.globalData })
 	} catch (error) {
 		console.error('Erro ao listar usuários para a view:', error)
 		res.status(500).json({ error: 'Erro ao listar usuários' })
@@ -16,7 +16,7 @@ export async function index(req, res) {
 export async function list(req, res) {
 	try {
 		const users = await User.findMany()
-		res.render('listUsers', { title: 'Lista de Usuários', users })
+		res.render('listUsers', { title: 'Lista de Usuários', users, globalData: req.app.locals.globalData })
 	} catch (error) {
 		console.error('Erro ao listar usuários para a view:', error)
 		res.status(500).json({ error: 'Erro ao listar usuários' })
@@ -46,7 +46,7 @@ export async function edit(req, res) {
 		if (!user) {
 			return res.status(404).json({ error: 'Usuário não encontrado' })
 		}
-		res.render('editUser', { title: 'Editar Usuário', user })
+		res.render('editUser', { title: 'Editar Usuário', user, globalData: req.app.locals.globalData })
 	} catch (error) {
 		console.error('Erro ao carregar formulário de edição:', error)
 		res.status(500).json({ error: 'Erro ao carregar formulário de edição' })
@@ -62,7 +62,7 @@ export async function create(req, res) {
 			if (req.is('json')) {
 				return res.status(409).json({ error: 'Usuário com este email já existe.' })
 			}
-			return res.render('createUser', { title: 'Criar Usuário', errorMessage: 'Usuário com este email já existe.' })
+			return res.render('createUser', { title: 'Criar Usuário', errorMessage: 'Usuário com este email já existe.', globalData: req.app.locals.globalData })
 		}
 
 		const newUser = await User.create({
@@ -90,7 +90,7 @@ export async function create(req, res) {
 }
 
 export function newUser(req, res) {
-	res.render('createUser', { title: 'Criar Usuário' })
+	res.render('createUser', { title: 'Criar Usuário', globalData: req.app.locals.globalData })
 }
 
 export async function update(req, res) {
