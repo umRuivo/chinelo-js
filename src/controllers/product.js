@@ -82,14 +82,19 @@ export async function deleteProduct(req, res) {
 	}
 }
 
-create.httpMethod = 'POST'
-create.middlewares = [validateProduct, auth, adminAuth]
+export const middlewares = [
+	['create', [validateProduct, auth, adminAuth]],
+	['update', [validateUid, validateProduct, auth, adminAuth]],
+	['deleteProduct', [validateUid, auth, adminAuth]],
+	['show', [validateUid]]
+]
 
-update.httpMethod = 'PUT'
-update.middlewares = [validateUid, validateProduct, auth, adminAuth]
+export const httpMethods = [
+	['create', 'POST'],
+	['update', 'PUT'],
+	['deleteProduct', 'DELETE']
+]
 
-deleteProduct.routeParams = ['uid']
-deleteProduct.httpMethod = 'DELETE'
-deleteProduct.middlewares = [validateUid, auth, adminAuth]
-
-show.middlewares = [validateUid]
+export const routeParams = [
+	['deleteProduct', ['uid']]
+]

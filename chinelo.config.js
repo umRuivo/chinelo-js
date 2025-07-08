@@ -7,7 +7,7 @@ export default {
 		author: '@junior.php',
 		prefix: prefix,
 		sufix: sufix,
-		sessionTime: 5
+		sessionTime: 1
 	},
 	port: 3000,
 	siteIP: '0.0.0.0',

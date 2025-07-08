@@ -47,5 +47,6 @@ export async function login(req, res) {
 	}
 }
 
-
-login.httpMethod = 'POST' 
+export const httpMethods = [
+	['login', 'POST']
+]

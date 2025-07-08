@@ -137,35 +137,39 @@ export async function deleteUser(req, res) {
 	}
 }
 
-
-
 export function ola(req, res) {
 	const {name} = req.params
 	res.send(`Greetings, ${name}!`)
 }
 
-ola.routeParams = ['name']
-ola.routePrefix = 'demo/'
-create.httpMethod = 'POST'
-create.middlewares = [validateUser,auth]
-newUser.middlewares = [auth]
-index.middlewares = [auth]
-list.middlewares = [auth]
+export const mainPrefix = ''
 
+export const middlewares = [
+	['create', [validateUser,auth]],
+	['newUser', [auth]],
+	['index', [auth]],
+	['list', [auth]],
+	['edit', [validateUid, auth]],
+	['update', [validateUid, validateUser, auth]],
+	['deleteUser', []],
+	['show', [validateUid]]
+]
 
-edit.httpMethod = 'GET'
-edit.middlewares = [validateUid, auth]
-edit.routeParams = ['uid']
-update.routeParams = ['uid']
-show.routeParams = ['uid']
+export const httpMethods = [
+	['create', 'POST'],
+	['edit', 'GET'],
+	['update', 'POST'],
+	['deleteUser', 'POST']
+]
 
-update.httpMethod = 'POST'
-update.middlewares = [validateUid, validateUser, auth]
+export const routeParams = [
+	['ola', ['name']],
+	['edit', ['uid']],
+	['update', ['uid']],
+	['show', ['uid']],
+	['deleteUser', ['uid']]
+]
 
-deleteUser.routeParams = ['uid']
-deleteUser.httpMethod = 'POST'
-deleteUser.middlewares = []
-
-show.middlewares = [validateUid]
-
-
+export const routePrefixes = [
+	['ola', 'demo/']
+]
