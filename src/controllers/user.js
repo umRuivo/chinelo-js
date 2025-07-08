@@ -7,7 +7,8 @@ import { getRota } from '../../core/helpers/routeHelper.js'
 export async function index(req, res) {
 	try {
 		const users = await User.findMany()
-		res.render('listUsers', { title: 'Lista de Usuários', users })
+		const newUserUrl = await getRota('user', 'newUser');
+		res.render('listUsers', { title: 'Lista de Usuários', users, newUserUrl })
 	} catch (error) {
 		console.error('Erro ao listar usuários para a view:', error)
 		res.status(500).json({ error: 'Erro ao listar usuários' })
@@ -17,7 +18,8 @@ export async function index(req, res) {
 export async function list(req, res) {
 	try {
 		const users = await User.findMany()
-		res.render('listUsers', { title: 'Lista de Usuários', users })
+		const newUserUrl = await getRota('user', 'newUser');
+		res.render('listUsers', { title: 'Lista de Usuários', users, newUserUrl })
 	} catch (error) {
 		console.error('Erro ao listar usuários para a view:', error)
 		res.status(500).json({ error: 'Erro ao listar usuários' })

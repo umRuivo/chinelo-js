@@ -16,13 +16,13 @@ block content
               td= user.name
               td= user.email
               td
-                a.btn.btn-warning.btn-sm.me-2(href=`/user/edit${globalData.sufix}/${user.uid}`) Editar
-                a.btn.btn-info.btn-sm.me-2(href=`/user/show${globalData.sufix}/${user.uid}`) Ver Perfil
+                a.btn.btn-warning.btn-sm.me-2(href=await getRota('user', 'edit', [user.uid])) Editar
+                a.btn.btn-info.btn-sm.me-2(href=await getRota('user', 'show', [user.uid])) Ver Perfil
                 button.btn.btn-danger.btn-sm(type="button", data-bs-toggle="modal", data-bs-target="#confirmDeleteModal", data-user-uid=user.uid) Deletar
   else
     .alert.alert-info Nenhum usuário encontrado.
   .mt-3
-    a.btn.btn-primary(href=`/user/newUser${globalData.sufix}`) Criar Novo Usuário
+    a.btn.btn-primary(href=newUserUrl) Criar Novo Usuário
 
   
   #confirmDeleteModal.modal.fade(tabindex="-1", aria-labelledby="confirmDeleteModalLabel", aria-hidden="true")
@@ -39,15 +39,12 @@ block content
 
   block scripts
     script.
-      const globalData = {
-        sufix: '#{globalData.sufix}'
-      };
       document.addEventListener('DOMContentLoaded', function() {
         const confirmDeleteModal = document.getElementById('confirmDeleteModal');
-        confirmDeleteModal.addEventListener('show.bs.modal', function (event) {
+        confirmDeleteModal.addEventListener('show.bs.modal', async function (event) {
           const button = event.relatedTarget; // Button that triggered the modal
           const userUid = button.getAttribute('data-user-uid'); // Extract info from data-* attributes
           const deleteForm = confirmDeleteModal.querySelector('#deleteForm');
-          deleteForm.action = `/user/deleteUser${globalData.sufix}/${userUid}`; //o erro está aqui
+          deleteForm.action = await getRota('user', 'deleteUser', [userUid]);
         });
       });
