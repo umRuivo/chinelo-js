@@ -36,6 +36,10 @@ O sistema utiliza o `autoRoutes.js` para escanear o diretório `src/controllers`
     ];
     ```
 
+## Middlewares Globais
+
+Os middlewares que são aplicados a todas as rotas da aplicação foram centralizados em `core/middlewares/global.middleware.js`. Isso inclui a configuração de sessão, parsers de corpo de requisição, arquivos estáticos, CORS, e o middleware de autenticação global (se aplicável). O handler de 404 também é definido no `server.js` após o registro de todas as rotas.
+
 ## Estrutura do Projeto
 
 ```
@@ -53,6 +57,54 @@ O sistema utiliza o `autoRoutes.js` para escanear o diretório `src/controllers`
 ├── server.js               # Ponto de entrada da aplicação
 └── package.json
 ```
+
+## Estrutura do Projeto
+
+```
+/
+├── prisma/                 # Configuração e migrações do Prisma
+├── public/                 # Arquivos estáticos (CSS, JS, imagens)
+├── src/
+│   ├── controllers/        # Lógica de controle da aplicação
+│   ├── core/               # Core do sistema (autoRoutes.js)
+│   ├── middlewares/        # Middlewares de autenticação, validação, etc.
+│   ├── models/             # Lógica de acesso a dados (usando Prisma)
+│   └── views/              # Arquivos de template (Pug)
+├── chinelo.config.js       # Arquivo de configuração principal
+├── custom.routes.js        # Definição de rotas manuais
+├── server.js               # Ponto de entrada da aplicação
+└── package.json
+```
+
+## Helper `getRota()`
+
+O helper `getRota()` é uma função assíncrona que facilita a geração de URLs dinâmicas em sua aplicação, garantindo que as rotas estejam sempre corretas e consistentes com a configuração do sistema. Ele é especialmente útil para links em views, actions de formulários e redirecionamentos.
+
+**Uso:**
+
+```javascript
+import { getRota } from './core/helpers/routeHelper.js';
+
+// Para rotas sem parâmetros:
+const homeUrl = await getRota('index'); // Retorna '/'
+const loginUrl = await getRota('login'); // Retorna '/login.asp' (ou o sufixo configurado)
+
+// Para rotas com parâmetros:
+// getRota('controllerName', 'methodName', [param1, param2, ...]);
+const userProfileUrl = await getRota('user', 'show', [user.uid]); // Ex: '/user/show.asp/123'
+const editUserUrl = await getRota('user', 'edit', [user.uid]); // Ex: '/user/edit.asp/123'
+
+// Para rotas que não existem ou com número incorreto de parâmetros:
+const nonexistentRoute = await getRota('nonexistent', 'method'); // Retorna 'rota inexistente'
+const mismatchedParams = await getRota('user', 'show', ['id1', 'id2']); // Retorna 'rota inexistente' se 'show' espera apenas 1 parâmetro
+```
+
+**Características:**
+
+*   **Assíncrono:** Deve ser chamado com `await`.
+*   **Método Padrão:** Se `methodName` for omitido, assume-se `'index'` (ex: `getRota('user')` é o mesmo que `getRota('user', 'index')`).
+*   **Rota Raiz:** `getRota('index')` ou `getRota('index', 'index')` retorna `'/'`.
+*   **Validação de Existência:** Retorna `'rota inexistente'` se o controller ou o método não existirem, ou se o número de parâmetros fornecidos não corresponder ao esperado pela rota.
 
 ## Instalação e Uso
 
