@@ -92,8 +92,9 @@ export async function create(req, res) {
 	}
 }
 
-export function newUser(req, res) {
-	res.render('createUser', { title: 'Criar Usuário' })
+export async function newUser(req, res) {
+	const createUserUrl = await getRota('user', 'create');
+	res.render('createUser', { title: 'Criar Usuário', createUserUrl })
 }
 
 export async function update(req, res) {
