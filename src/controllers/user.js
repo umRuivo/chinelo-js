@@ -153,7 +153,6 @@ index.middlewares = [auth]
 list.middlewares = [auth]
 
 
-
 edit.httpMethod = 'GET'
 edit.middlewares = [validateUid, auth]
 edit.routeParams = ['uid']

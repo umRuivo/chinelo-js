@@ -14,7 +14,6 @@ html(lang="pt-br")
       nav.navbar.navbar-expand-lg.navbar-dark
         .container-fluid
           a.navbar-brand(href="/")= globalData.siteName
-          input#timex(type="hidden" value = globalData.sessionTime)
           button.navbar-toggler(type="button", data-bs-toggle="collapse", data-bs-target="#navbarNav", aria-controls="navbarNav", aria-expanded="false", aria-label="Toggle navigation")
             span.navbar-toggler-icon
           .collapse.navbar-collapse#navbarNav
@@ -22,7 +21,7 @@ html(lang="pt-br")
               li.nav-item
                 a.nav-link(href="/") Início
               li.nav-item
-                a.nav-link(href="/user/" + globalData.sufix) Usuários
+                a.nav-link(href="/user" + globalData.sufix) Usuários
               if !user
                 li.nav-item
                   a.nav-link(href="/login" + globalData.sufix) Login
@@ -44,9 +43,8 @@ html(lang="pt-br")
     if user
       script.
         document.addEventListener('DOMContentLoaded', function() {
-          let timexx = document.getElementById('timex')
           let timerElement = document.getElementById('sessionTimer');
-          let sessionTimeout = timexx.value * 60;
+          let sessionTimeout = parseInt('#{globalData.sessionTime}') * 60;
 
           function updateTimer() {
             let minutes = Math.floor(sessionTimeout / 60);

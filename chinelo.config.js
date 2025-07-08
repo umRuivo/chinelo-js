@@ -1,5 +1,5 @@
 const prefix = ''
-const sufix = ''
+const sufix = '.asp'
 
 export default {
 	globalData: {
