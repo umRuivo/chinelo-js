@@ -4,13 +4,6 @@ block content
   h1= title
   p Bem-vindo ao nosso site! 
   h1= globalData.author
-  if users && users.length > 0
-    h2 Usuários:
-    ul
-      each user in users
-        li= user.name + ' - ' + user.email
-  else
-    p Nenhum usuário encontrado
 
   
   if allRoutes && Object.keys(allRoutes).length > 0

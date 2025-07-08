@@ -1,5 +1,5 @@
-const prefix = ''
-const sufix = '.asp'
+const prefix = 'casa/'
+const sufix = '.jsp'
 
 export default {
 	globalData: {
@@ -7,7 +7,7 @@ export default {
 		author: '@junior.php',
 		prefix: prefix,
 		sufix: sufix,
-		sessionTime: 1
+		sessionTime: 10
 	},
 	port: 3000,
 	siteIP: '0.0.0.0',
