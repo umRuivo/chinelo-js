@@ -2,6 +2,7 @@ import { User } from '../models/User.js'
 import { auth, adminAuth } from '../middlewares/auth.js'
 import { validateUser, validateUid } from '../middlewares/validation.js'
 import config from './../../chinelo.config.js'
+import { getRota } from '../../core/helpers/routeHelper.js'
 
 export async function index(req, res) {
 	try {
@@ -30,7 +31,9 @@ export async function show(req, res) {
 		if (!user) {
 			return res.status(404).render('notfound', { title: 'Usuário não encontrado', message: 'Usuário não encontrado', statusCode: 404, globalData: req.app.locals.globalData })
 		}
-		res.render('showUser', { title: 'Perfil do Usuário', user, globalData: req.app.locals.globalData })
+		const editUserUrl = await getRota('user', 'edit', [user.uid]);
+		const listUsersUrl = await getRota('user', 'list');
+		res.render('showUser', { title: 'Perfil do Usuário', user, globalData: req.app.locals.globalData, editUserUrl, listUsersUrl })
 	} catch (error) {
 		console.error('Erro ao buscar usuário para a view:', error)
 		res.status(500).render('notfound', { title: 'Erro', message: 'Erro ao buscar usuário', statusCode: 500, globalData: req.app.locals.globalData })

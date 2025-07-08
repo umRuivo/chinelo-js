@@ -14,5 +14,5 @@ block content
             strong.d-block.mb-1 UID:
             p.card-text.lead.ms-3= user.uid
           .d-grid.gap-2
-            a.btn.btn-warning.btn-lg(href=`/user/edit${globalData.sufix}/${user.uid}`) Editar Perfil
-            a.btn.btn-secondary.btn-lg(href="/user/list" + globalData.sufix) Voltar para a Lista de Usuários
+            a.btn.btn-warning.btn-lg(href=editUserUrl) Editar Perfil
+            a.btn.btn-secondary.btn-lg(href=listUsersUrl) Voltar para a Lista de Usuários
