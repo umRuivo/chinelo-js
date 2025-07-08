@@ -15,7 +15,7 @@ const __dirname = path.dirname(__filename);
  * @param {Array<string|number>} [paramValues] - Optional array of values to substitute for route parameters.
  * @returns {Promise<string>} The complete route string or 'rota inexistente'.
  */
-async function getRota(controllerName, methodName, paramValues = []) {
+async function getRota(controllerName, methodName = 'index', paramValues = []) {
   const controllerPath = path.join(__dirname, '../../src/controllers', `${controllerName}.js`);
 
   if (!fs.existsSync(controllerPath)) {
