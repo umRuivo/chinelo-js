@@ -101,7 +101,7 @@ export async function create(req, res) {
 			})
 		}
 
-		res.redirect('/user/list' + config.routeSufix)
+		res.redirect(await getRota('user', 'list'))
 
 	} catch (error) {
 		console.error('Erro detalhado ao criar usuário:', error)
@@ -131,7 +131,7 @@ export async function update(req, res) {
 			})
 		}
 
-		res.redirect('/user/list' + config.routeSufix)
+		res.redirect(await getRota('user', 'list'))
 
 	} catch (error) {
 		console.error('Erro ao atualizar usuário:', error)
@@ -152,7 +152,7 @@ export async function deleteUser(req, res) {
 			})
 		}
 
-		res.redirect('/user/list' + config.routeSufix)
+		res.redirect(await getRota('user', 'list'))
 
 	} catch (error) {
 		console.error('Erro detalhado ao deletar usuário:', error)

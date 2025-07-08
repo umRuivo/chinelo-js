@@ -1,5 +1,5 @@
 const prefix = 'casa/'
-const sufix = '.jsp'
+const sufix = '/index.html'
 
 export default {
 	globalData: {
