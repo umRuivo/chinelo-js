@@ -13,8 +13,8 @@ export function greet(req, res) {
     res.send(`Greetings, ${name}!`);
 }
 
-export function showRoute(req, res) {
-    const rota = getRota('example', 'showRoute', { id: ':id' });
+export async function showRoute(req, res) {
+    const rota = await getRota('example', 'greet');
     res.send(`This is the generated route: ${rota}`);
 }
 
