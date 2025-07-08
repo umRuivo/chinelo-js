@@ -16,6 +16,9 @@ const __dirname = path.dirname(__filename);
  * @returns {Promise<string>} The complete route string or 'rota inexistente'.
  */
 async function getRota(controllerName, methodName = 'index', paramValues = []) {
+  if (controllerName === 'index' && methodName === 'index') {
+    return '/';
+  }
   const controllerPath = path.join(__dirname, '../../src/controllers', `${controllerName}.js`);
 
   if (!fs.existsSync(controllerPath)) {
