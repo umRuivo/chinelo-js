@@ -163,7 +163,7 @@ export const httpMethods = [
 ]
 
 export const routeParams = [
-	['ola', ['name']],
+	['ola', ['name', 'coisa']],
 	['edit', ['uid']],
 	['update', ['uid']],
 	['show', ['uid']],

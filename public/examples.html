@@ -49,10 +49,17 @@ export function greet(req, res) {
     res.send(`Greetings, ${name}!`);
 }
 
-greet.httpMethod = 'GET'; // o metodo GET é opcional, pois ele será atribuido quando nada é atribuido como metodo, 
-greet.routeParams = ['name'];
+export const httpMethods = [
+    ['greet', 'GET'] // o metodo GET é opcional, pois ele será atribuido quando nada é atribuido como metodo
+];
 
-greet.routePrefix = 'custom/'; // Gera a rota /custom/example/greet/:name
+export const routeParams = [
+    ['greet', ['name']]
+];
+
+export const routePrefixes = [
+    ['greet', 'custom/'] // Gera a rota /custom/example/greet/:name
+];
 </code></pre>
 
         <h2>Passo 2: Acesse as Rotas</h2>
@@ -60,7 +67,7 @@ greet.routePrefix = 'custom/'; // Gera a rota /custom/example/greet/:name
         <ul>
             <li>Para acessar a função <code>hello</code>: <code>/example/hello</code></li>
             <li>Para acessar a função <code>index</code>: <code>/example</code></li>
-            <li>Para acessar a função <code>greet</code>: <code>/example/greet/:name</code> (ex: <code>/example/greet/John</code>)</li>
+            <li>Para acessar a função <code>greet</code>: <code>/custom/example/greet/:name</code> (ex: <code>/custom/example/greet/John</code>)</li>
         </ul>
 
         <p>Lembre-se de reiniciar seu servidor se você não estiver usando hot-reloading para que as alterações tenham efeito.</p>

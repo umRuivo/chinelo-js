@@ -48,14 +48,18 @@
         <ul>
             <li><strong>Nome do Controller:</strong> O nome do arquivo (sem a extensão <code>.js</code>) se torna a base da rota (ex: <code>user.js</code> → <code>/user</code>).</li>
             <li><strong>Nome da Função:</strong> O nome da função se torna o endpoint (ex: <code>function list()</code> → <code>/user/list</code>).</li>
-            <li><strong>Método HTTP:</strong> O método é inferido pelo nome da função (<code>get</code>, <code>post</code>, <code>create</code>, <code>update</code>, <code>delete</code>) ou pode ser especificado explicitamente:
-<pre><code>minhaFuncao.httpMethod = 'POST';
-</code></pre></li>
-            <li><strong>Parâmetros de Rota:</strong> Adicione parâmetros à rota da seguinte forma:
-<pre><code>minhaFuncao.routeParams = ['id']; // Gera a rota /controller/minhaFuncao/:id
-</code></pre></li>
-            <li><strong>Middlewares:</strong> Aplique middlewares a uma rota específica:
-<pre><code>minhaFuncao.middlewares = [authMiddleware, adminMiddleware];
+            <li><strong>Metadados de Rota:</strong> Os metadados da rota (método HTTP, parâmetros e middlewares) são definidos em arrays exportados:
+<pre><code>export const middlewares = [
+    ['minhaFuncao', [authMiddleware, adminMiddleware]]
+];
+
+export const httpMethods = [
+    ['minhaFuncao', 'POST']
+];
+
+export const routeParams = [
+    ['minhaFuncao', ['id']] // Gera a rota /controller/minhaFuncao/:id
+];
 </code></pre></li>
         </ul>
 
@@ -120,7 +124,7 @@ bun install
             <li><code>dirPublic</code>: Diretório de arquivos públicos.</li>
             <li><code>templateEngine</code>: Motor de templates (ex: 'pug').</li>
             <li><code>apiMode</code>: <code>true</code> para uma API JSON, <code>false</code> para uma aplicação web com views.</li>
-            <li><code>activeLimiter</code>: Ativa ou desativa o limitador de requisições.</li>
+            <li><code>activeLimiter</code>: Ativa ou desativa o limitador de requisições.
             <li><code>routeSufix</code>: Sufixo adicionado a todas as rotas geradas automaticamente (ex: '.html', '.json').</li>
             <li><code>globalRoutePrefix</code>: Prefixo global adicionado a todas as rotas geradas automaticamente (ex: '/api/').</li>
             <li><code>siteIP</code>: Endereço IP no qual o servidor irá escutar (ex: '0.0.0.0' para todas as interfaces, ou '127.0.0.1' para localhost).</li>

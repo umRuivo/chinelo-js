@@ -18,17 +18,22 @@ O sistema utiliza o `autoRoutes.js` para escanear o diretório `src/controllers`
 
 *   **Nome do Controller:** O nome do arquivo (sem a extensão `.js`) se torna a base da rota (ex: `user.js` → `/user`).
 *   **Nome da Função:** O nome da função se torna o endpoint (ex: `function list()` → `/user/list`).
-*   **Método HTTP:** O método é inferido pelo nome da função (`get`, `post`, `create`, `update`, `delete`) ou pode ser especificado explicitamente:
+*   **Metadados de Rota:**
+
+    Os metadados da rota (método HTTP, parâmetros e middlewares) são definidos em arrays exportados:
+
     ```javascript
-    minhaFuncao.httpMethod = 'POST';
-    ```
-*   **Parâmetros de Rota:** Adicione parâmetros à rota da seguinte forma:
-    ```javascript
-    minhaFuncao.routeParams = ['id']; // Gera a rota /controller/minhaFuncao/:id
-    ```
-*   **Middlewares:** Aplique middlewares a uma rota específica:
-    ```javascript
-    minhaFuncao.middlewares = [authMiddleware, adminMiddleware];
+    export const middlewares = [
+        ['minhaFuncao', [authMiddleware, adminMiddleware]]
+    ];
+
+    export const httpMethods = [
+        ['minhaFuncao', 'POST']
+    ];
+
+    export const routeParams = [
+        ['minhaFuncao', ['id']] // Gera a rota /controller/minhaFuncao/:id
+    ];
     ```
 
 ## Estrutura do Projeto
