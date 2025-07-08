@@ -1,13 +1,12 @@
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import config from '../chinelo.config.js';
+import fs from 'fs'
+import path from 'path'
+import { fileURLToPath } from 'url'
+import config from '../chinelo.config.js'
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 let allRoutes = {};
 
-// Helper function to find metadata in the new array structures
 function findInMetadata(methodName, metadataArray) {
     if (!Array.isArray(metadataArray)) {
         return undefined;

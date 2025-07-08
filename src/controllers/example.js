@@ -1,0 +1,25 @@
+export function hello(req, res) {
+    res.send('Hello from Example Controller!');
+}
+
+export function index(req, res) {
+    res.send('This is the index function!');
+}
+
+export function greet(req, res) {
+    const {name} = req.params;
+    res.send(`Greetings, ${name}!`);
+}
+
+export const httpMethods = [
+    ['greet', 'GET'] // o metodo GET é opcional, pois ele será atribuido quando nada é atribuido como metodo
+];
+
+export const routeParams = [
+    ['greet', ['name']]
+];
+
+export const routePrefixes = [
+    ['greet', 'custom/'] // Gera a rota /custom/example/greet/:name
+];
+
