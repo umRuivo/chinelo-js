@@ -1,3 +1,5 @@
+import { getRota } from '../../core/helpers/routeHelper.js';
+
 export function hello(req, res) {
     res.send('Hello from Example Controller!');
 }
@@ -11,8 +13,14 @@ export function greet(req, res) {
     res.send(`Greetings, ${name}!`);
 }
 
+export function showRoute(req, res) {
+    const rota = getRota('example', 'showRoute', { id: ':id' });
+    res.send(`This is the generated route: ${rota}`);
+}
+
 export const httpMethods = [
-    ['greet', 'GET'] // o metodo GET é opcional, pois ele será atribuido quando nada é atribuido como metodo
+    ['greet', 'GET'], // o metodo GET é opcional, pois ele será atribuido quando nada é atribuido como metodo
+    ['showRoute', 'GET']
 ];
 
 export const routeParams = [
