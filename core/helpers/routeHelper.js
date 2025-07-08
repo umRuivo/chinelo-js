@@ -7,13 +7,14 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 /**
- * Generates a complete route string, automatically including parameters.
+ * Generates a complete route string, automatically including parameters and substituting values.
  *
  * @param {string} controllerName - The controller name (e.g., 'user').
  * @param {string} methodName - The action name (e.g., 'ola').
+ * @param {Array<string|number>} [paramValues] - Optional array of values to substitute for route parameters.
  * @returns {Promise<string>} The complete route string.
  */
-async function getRota(controllerName, methodName) {
+async function getRota(controllerName, methodName, paramValues = []) {
   const controllerPath = path.join(__dirname, '../../src/controllers', `${controllerName}.js`);
 
   try {
@@ -44,7 +45,13 @@ async function getRota(controllerName, methodName) {
     }
 
     if (routeParams.length > 0) {
-        const paramsString = routeParams.map(param => `:${param}`).join('/');
+        let paramsString;
+        if(paramValues.length > 0) {
+            paramsString = paramValues.join('/');
+        } else {
+            paramsString = routeParams.map(param => `:${param}`).join('/');
+        }
+        
         if (methodName === 'index') {
             routePath = `/${config.globalRoutePrefix}${finalControllerName}${config.routeSufix}/${paramsString}`;
         } else {
