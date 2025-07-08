@@ -1,5 +1,6 @@
 import { User } from '../models/User.js'
 import config from '../../chinelo.config.js'
+import { getRota } from '../../core/helpers/routeHelper.js'
 
 function msg(params) {
 	console.log(params)
@@ -14,9 +15,10 @@ export function logout(req, res) {
 	})
 }
 
-export function index(req, res) {
+export async function index(req, res) {
 	msg('Acessando a página de login')
-	res.render('login', { title: 'Login' })
+	const loginPostUrl = await getRota('login', 'login');
+	res.render('login', { title: 'Login', loginPostUrl: loginPostUrl })
 }
 
 export async function login(req, res) {
