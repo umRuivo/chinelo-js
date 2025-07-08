@@ -49,7 +49,8 @@ export async function edit(req, res) {
 		if (!user) {
 			return res.status(404).json({ error: 'Usuário não encontrado' })
 		}
-		res.render('editUser', { title: 'Editar Usuário', user })
+		const updateUserUrl = await getRota('user', 'update', [user.uid]);
+		res.render('editUser', { title: 'Editar Usuário', user, updateUserUrl })
 	} catch (error) {
 		console.error('Erro ao carregar formulário de edição:', error)
 		res.status(500).json({ error: 'Erro ao carregar formulário de edição' })
