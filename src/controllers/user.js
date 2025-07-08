@@ -8,7 +8,15 @@ export async function index(req, res) {
 	try {
 		const users = await User.findMany()
 		const newUserUrl = await getRota('user', 'newUser');
-		res.render('listUsers', { title: 'Lista de Usuários', users, newUserUrl })
+
+		const usersWithUrls = await Promise.all(users.map(async user => ({
+			...user,
+			editUrl: await getRota('user', 'edit', [user.uid]),
+			showUrl: await getRota('user', 'show', [user.uid]),
+			deleteUrl: await getRota('user', 'deleteUser', [user.uid])
+		})));
+
+		res.render('listUsers', { title: 'Lista de Usuários', users: usersWithUrls, newUserUrl })
 	} catch (error) {
 		console.error('Erro ao listar usuários para a view:', error)
 		res.status(500).json({ error: 'Erro ao listar usuários' })
@@ -19,7 +27,15 @@ export async function list(req, res) {
 	try {
 		const users = await User.findMany()
 		const newUserUrl = await getRota('user', 'newUser');
-		res.render('listUsers', { title: 'Lista de Usuários', users, newUserUrl })
+
+		const usersWithUrls = await Promise.all(users.map(async user => ({
+			...user,
+			editUrl: await getRota('user', 'edit', [user.uid]),
+			showUrl: await getRota('user', 'show', [user.uid]),
+			deleteUrl: await getRota('user', 'deleteUser', [user.uid])
+		})));
+
+		res.render('listUsers', { title: 'Lista de Usuários', users: usersWithUrls, newUserUrl })
 	} catch (error) {
 		console.error('Erro ao listar usuários para a view:', error)
 		res.status(500).json({ error: 'Erro ao listar usuários' })

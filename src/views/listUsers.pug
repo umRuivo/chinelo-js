@@ -16,9 +16,9 @@ block content
               td= user.name
               td= user.email
               td
-                a.btn.btn-warning.btn-sm.me-2(href=await getRota('user', 'edit', [user.uid])) Editar
-                a.btn.btn-info.btn-sm.me-2(href=await getRota('user', 'show', [user.uid])) Ver Perfil
-                button.btn.btn-danger.btn-sm(type="button", data-bs-toggle="modal", data-bs-target="#confirmDeleteModal", data-user-uid=user.uid) Deletar
+                a.btn.btn-warning.btn-sm.me-2(href=user.editUrl) Editar
+                a.btn.btn-info.btn-sm.me-2(href=user.showUrl) Ver Perfil
+                button.btn.btn-danger.btn-sm(type="button", data-bs-toggle="modal", data-bs-target="#confirmDeleteModal", data-user-uid=user.uid, data-delete-url=user.deleteUrl) Deletar
   else
     .alert.alert-info Nenhum usuário encontrado.
   .mt-3
@@ -41,10 +41,11 @@ block content
     script.
       document.addEventListener('DOMContentLoaded', function() {
         const confirmDeleteModal = document.getElementById('confirmDeleteModal');
-        confirmDeleteModal.addEventListener('show.bs.modal', async function (event) {
+        confirmDeleteModal.addEventListener('show.bs.modal', function (event) {
           const button = event.relatedTarget; // Button that triggered the modal
-          const userUid = button.getAttribute('data-user-uid'); // Extract info from data-* attributes
+          const deleteUrl = button.getAttribute('data-delete-url'); // Extract info from data-* attributes
           const deleteForm = confirmDeleteModal.querySelector('#deleteForm');
-          deleteForm.action = await getRota('user', 'deleteUser', [userUid]);
+          deleteForm.action = deleteUrl;
         });
       });
+
