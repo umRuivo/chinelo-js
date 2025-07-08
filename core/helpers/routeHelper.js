@@ -26,7 +26,13 @@ async function getRota(controllerName, methodName, paramValues = []) {
     const controllerModule = await import(`file://${controllerPath}`);
 
     if (typeof controllerModule[methodName] !== 'function') {
-        return 'rota inexistente';
+        // If the named method is not found, check for a default export
+        if (methodName === 'index' && typeof controllerModule.default === 'function') {
+            // If 'index' is the method and there's a default export, use it.
+            // No change to methodName, as the route path logic already handles 'index'.
+        } else {
+            return 'rota inexistente';
+        }
     }
 
     const mainPrefix = controllerModule.mainPrefix || '';

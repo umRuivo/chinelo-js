@@ -14,7 +14,7 @@ export function greet(req, res) {
 }
 
 export async function showRoute(req, res) {
-    const rota = await getRota('user', 'ola', ['jr', 'asf', 'jj']);
+    const rota = await getRota('index', 'index');
     res.send(`This is the generated route: ${rota}`);
 }
 
