@@ -7,11 +7,12 @@ function msg(params) {
 }
 
 export function logout(req, res) {
-	req.session.destroy((err) => {
+	req.session.destroy(async (err) => {
 		if (err) {
 			return res.status(500).send('Failed to log out')
 		}
-		res.redirect('/login' + config.routeSufix)
+		const loginUrl = await getRota('login');
+		res.redirect(loginUrl)
 	})
 }
 
@@ -41,7 +42,8 @@ export async function login(req, res) {
 			return res.json({ success: true, message: 'Login bem-sucedido', user: { uid: user.uid, email: user.email, name: user.name } })
 		}
 
-		res.redirect('/user' + config.routeSufix);
+		const userListUrl = await getRota('user', 'list');
+		res.redirect(userListUrl);
 
 	} catch (error) {
 		console.error('Erro durante o login:', error)
