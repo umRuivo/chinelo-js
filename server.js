@@ -6,6 +6,7 @@ import cors from 'cors'
 import config from './chinelo.config.js'
 import session from 'express-session'
 import { auth } from './src/middlewares/auth.js'
+import { getRota } from './core/helpers/routeHelper.js'
 
 const app = express()
 
@@ -21,6 +22,15 @@ app.use((req, res, next) => {
 	res.locals.user = req.session.user
 	next()
 })
+
+// Middleware para disponibilizar rotas nas views
+app.use(async (req, res, next) => {
+    res.locals.homeUrl = await getRota('index', 'index');
+    res.locals.usersUrl = await getRota('user', 'index'); // Assumindo que 'user' tem um método 'index'
+    res.locals.loginUrl = await getRota('login', 'index');
+    res.locals.logoutUrl = await getRota('login', 'logout');
+    next();
+});
 
 const PORT = process.env.PORT || config.port
 app.use(express.json())
@@ -65,7 +75,9 @@ if(config.activeLimiter) app.use(limiter)
 app.locals.globalData = config.globalData
 app.use(cors())
 app.listen(PORT, config.siteIP ,() => {
-	console.log(`\n🚀 Servidor rodando na porta ${PORT}`)
+	console.log(`
+🚀 Servidor rodando na porta ${PORT}`)
 	console.log(`
 📍 http://${config.siteIP}:${PORT}`)
 })
+

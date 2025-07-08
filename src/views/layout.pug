@@ -13,22 +13,22 @@ html(lang="pt-br")
     header
       nav.navbar.navbar-expand-lg.navbar-dark
         .container-fluid
-          a.navbar-brand(href="/")= globalData.siteName
+          a.navbar-brand(href=homeUrl)= globalData.siteName
           button.navbar-toggler(type="button", data-bs-toggle="collapse", data-bs-target="#navbarNav", aria-controls="navbarNav", aria-expanded="false", aria-label="Toggle navigation")
             span.navbar-toggler-icon
           .collapse.navbar-collapse#navbarNav
             ul.navbar-nav
               li.nav-item
-                a.nav-link(href="/") Início
+                a.nav-link(href=homeUrl) Início
               li.nav-item
-                a.nav-link(href="/user" + globalData.sufix) Usuários
+                a.nav-link(href=usersUrl) Usuários
               if !user
                 li.nav-item
-                  a.nav-link(href="/login" + globalData.sufix) Login
+                  a.nav-link(href=loginUrl) Login
             if user
               ul.navbar-nav.ms-auto
                 li.nav-item
-                  a.nav-link(href="/login/logout" + globalData.sufix) Logout (#{user.name})
+                  a.nav-link(href=logoutUrl) Logout (#{user.name})
                 li.nav-item.ms-3
                   span#sessionTimer.nav-link.text-warning(data-session-time=globalData.sessionTime)
 
@@ -53,7 +53,7 @@ html(lang="pt-br")
 
             if (sessionTimeout <= 0) {
               clearInterval(countdown);
-              window.location.href = '/login/logout' + '#{globalData.sufix}';
+              window.location.href = logoutUrl;
             } else {
               sessionTimeout--;
             }
