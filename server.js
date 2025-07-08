@@ -20,6 +20,22 @@ Object.keys(app.locals.allRoutes).forEach(controllerName => {
   });
 });
 
+// 404 Handler - This should be the last middleware
+app.use((req, res) => {
+	if(!config.apiMode)
+		res.status(404).render(config.pageNotFound,{
+			title: config.msgNotFound,
+			message: config.msgNotFound,
+			statusCode: 404
+		})
+	else
+		res.status(404).json({
+			title: 'error',
+			message: config.msgNotFound,
+			statusCode: 404
+		})
+})
+
 app.listen(PORT, config.siteIP ,() => {
 	console.log(`
 🚀 Servidor rodando na porta ${PORT}`)

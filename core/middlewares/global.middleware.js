@@ -40,29 +40,13 @@ export function setupGlobalMiddlewares(app, config) {
     if (config.activeLimiter) {
         const limiter = rateLimit({
             windowMs: 15 * 60 * 1000,
-            max: 100,
+            max: 1,
             message: 'Muitas requisições, tente novamente em 15 minutos'
         });
         app.use(limiter);
     }
 
     app.use(cors());
-
-    // 404 Handler - This should be the last middleware
-    app.use((req, res) => {
-        if (!config.apiMode)
-            res.status(404).render(config.pageNotFound, {
-                title: config.msgNotFound,
-                message: config.msgNotFound,
-                statusCode: 404
-            });
-        else
-            res.status(404).json({
-                title: 'error',
-                message: config.msgNotFound,
-                statusCode: 404
-            });
-    });
 
     app.locals.globalData = config.globalData;
 }
