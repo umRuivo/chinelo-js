@@ -26,7 +26,7 @@ app.use((req, res, next) => {
 // Middleware para disponibilizar rotas nas views
 app.use(async (req, res, next) => {
     res.locals.homeUrl = await getRota('index');
-    res.locals.usersUrl = await getRota('user'); // Assumindo que 'user' tem um método 'index'
+    res.locals.usersUrl = await getRota('user');
     res.locals.loginUrl = await getRota('login');
     res.locals.logoutUrl = await getRota('login', 'logout');
     next();
