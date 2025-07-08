@@ -33,6 +33,11 @@ async function getRota(controllerName, methodName, paramValues = []) {
     const routePrefix = findInMetadata(methodName, controllerModule.routePrefixes) || '';
     const routeParams = findInMetadata(methodName, controllerModule.routeParams) || [];
 
+    // Validate number of parameters
+    if (paramValues.length > 0 && routeParams.length !== paramValues.length) {
+        return 'rota inexistente';
+    }
+
     let finalControllerName = controllerName;
 
     if (mainPrefix && !routePrefix) {
