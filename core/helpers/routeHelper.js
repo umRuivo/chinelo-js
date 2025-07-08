@@ -2,6 +2,7 @@
 import config from '../../chinelo.config.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import fs from 'fs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -12,13 +13,22 @@ const __dirname = path.dirname(__filename);
  * @param {string} controllerName - The controller name (e.g., 'user').
  * @param {string} methodName - The action name (e.g., 'ola').
  * @param {Array<string|number>} [paramValues] - Optional array of values to substitute for route parameters.
- * @returns {Promise<string>} The complete route string.
+ * @returns {Promise<string>} The complete route string or 'rota inexistente'.
  */
 async function getRota(controllerName, methodName, paramValues = []) {
   const controllerPath = path.join(__dirname, '../../src/controllers', `${controllerName}.js`);
 
+  if (!fs.existsSync(controllerPath)) {
+    return 'rota inexistente';
+  }
+
   try {
     const controllerModule = await import(`file://${controllerPath}`);
+
+    if (typeof controllerModule[methodName] !== 'function') {
+        return 'rota inexistente';
+    }
+
     const mainPrefix = controllerModule.mainPrefix || '';
     const routePrefix = findInMetadata(methodName, controllerModule.routePrefixes) || '';
     const routeParams = findInMetadata(methodName, controllerModule.routeParams) || [];
@@ -62,8 +72,8 @@ async function getRota(controllerName, methodName, paramValues = []) {
     return routePath.replace(/\/\//g, '/'); // Clean up double slashes
 
   } catch (error) {
-    console.error(`Error loading controller ${controllerName}:`, error);
-    return ''; // Return empty string or handle error as needed
+    // This catch block might still be useful for other import-related errors.
+    return 'rota inexistente';
   }
 }
 

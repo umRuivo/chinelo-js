@@ -23,10 +23,16 @@ export async function showRouteWithParams(req, res) {
     res.send(`This is the generated route with params: ${rota}`);
 }
 
+export async function showNonExistentRoute(req, res) {
+    const rota = await getRota('example', 'nonexistent');
+    res.send(`This should be 'rota inexistente': ${rota}`);
+}
+
 export const httpMethods = [
     ['greet', 'GET'], // o metodo GET é opcional, pois ele será atribuido quando nada é atribuido como metodo
     ['showRoute', 'GET'],
-    ['showRouteWithParams', 'GET']
+    ['showRouteWithParams', 'GET'],
+    ['showNonExistentRoute', 'GET']
 ];
 
 export const routeParams = [
