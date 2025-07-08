@@ -40,15 +40,13 @@ export function setupGlobalMiddlewares(app, config) {
     if (config.activeLimiter) {
         const limiter = rateLimit({
             windowMs: 15 * 60 * 1000,
-            max: 1,
+            max: 100,
             message: 'Muitas requisições, tente novamente em 15 minutos'
         });
         app.use(limiter);
     }
 
     app.use(cors());
-
-    app.use(auth);
 
     // 404 Handler - This should be the last middleware
     app.use((req, res) => {
