@@ -160,7 +160,7 @@ O arquivo `chinelo.config.js` permite customizar o comportamento da aplicação:
 *   `msgNotFound`: Mensagem exibida quando a página não é encontrada.
 *   `activeLimiter`: Ativa ou desativa o limitador de requisições.
 *   `apiMode`: `true` para uma API JSON, `false` para uma aplicação web com views.
-*   `routeSufix`: Sufixo adicionado a todas as rotas (ex: '.asp').
+*   `routeSufix`: Sufixo adicionado a todas as rotas (ex: '/index.html').
 *   `globalRoutePrefix`: Prefixo global adicionado a todas as rotas (ex: 'admin/').
 *   `maxRequests`: Número máximo de requisições permitidas dentro do `maxRequestsTime`.
 *   `maxRequestsTime`: Tempo em minutos para o limite de requisições.
