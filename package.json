@@ -7,7 +7,8 @@
   "scripts": {
     "start": "bun server.js",
     "dev": "bun --hot server.js",
-    "lint": "bun eslint . --fix"
+    "lint": "bun eslint . --fix",
+    "export-routes": "node scripts/generate-export-routes.js"
   },
   "dependencies": {
     "@prisma/client": "^6.11.1",

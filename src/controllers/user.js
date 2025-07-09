@@ -172,6 +172,7 @@ export const middlewares = [
 	['newUser', [auth]],
 	['index', [auth]],
 	['list', [auth]],
+	['ola', [auth]],
 	['edit', [validateUid, auth]],
 	['update', [validateUid, validateUser, auth]],
 	['deleteUser', []],
@@ -182,7 +183,8 @@ export const httpMethods = [
 	['create', 'POST'],
 	['edit', 'GET'],
 	['update', 'POST'],
-	['deleteUser', 'POST']
+	['deleteUser', 'POST'],
+	['ola', 'POST']
 ]
 
 export const routeParams = [
