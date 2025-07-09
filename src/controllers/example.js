@@ -18,6 +18,8 @@ export async function showRoute(req, res) {
     res.send(`This is the generated route: ${rota}`);
 }
 
+export const mainPrefix ='' // todas as rotas DESSE controller vão ter esse prefixo
+
 export const httpMethods = [
     ['greet', 'GET'], // o metodo GET é opcional, pois ele será atribuido quando nada é atribuido como metodo
     ['showRoute', 'GET'],
@@ -28,6 +30,5 @@ export const routeParams = [
 ];
 
 export const routePrefixes = [
-    ['greet', 'custom/'] // Gera a rota /custom/example/greet/:name
+    ['greet', ''] // Gera a rota /custom/example/greet/:name
 ];
-

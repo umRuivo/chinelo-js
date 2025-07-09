@@ -53,7 +53,7 @@ html(lang="pt-br")
 
             if (sessionTimeout <= 0) {
               clearInterval(countdown);
-              window.location.href = logoutUrl;
+              window.location.href = '#{logoutUrl}';
             } else {
               sessionTimeout--;
             }

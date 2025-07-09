@@ -54,7 +54,7 @@ export async function show(req, res) {
 		res.render('showUser', { title: 'Perfil do Usuário', user, globalData: req.app.locals.globalData, editUserUrl, listUsersUrl })
 	} catch (error) {
 		console.error('Erro ao buscar usuário para a view:', error)
-		res.status(500).render('notfound', { title: 'Erro', message: 'Erro ao buscar usuário', statusCode: 500, globalData: req.app.locals.globalData })
+		res.status(500).render('notfound', { title: 'Erro', message: 'Erro ao buscar usuário'})
 	}
 }
 
@@ -165,7 +165,7 @@ export function ola(req, res) {
 	res.send(`Greetings, ${name}!`)
 }
 
-export const mainPrefix = ''
+export const mainPrefix = 'admin/'
 
 export const middlewares = [
 	['create', [validateUser,auth]],

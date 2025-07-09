@@ -1,6 +1,6 @@
 import express from 'express'
 import { autoRoutes } from './core/autoRoutes.js'
-import { router as customRoutes, customRoutesList } from './custom.routes.js'
+import { customRoutes, customRoutesList } from './custom.routes.js'
 import config from './chinelo.config.js'
 import { setupGlobalMiddlewares } from './core/middlewares/global.middleware.js'
 

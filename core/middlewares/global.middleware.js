@@ -11,7 +11,7 @@ export function setupGlobalMiddlewares(app, config) {
         resave: false,
         saveUninitialized: true,
         rolling: true,
-        cookie: { secure: false, maxAge: 5 * 60 * 1000 }
+        cookie: { secure: false, maxAge: config.globalData.sessionTime * 60 * 1000 }
     }));
 
     app.use((req, res, next) => {

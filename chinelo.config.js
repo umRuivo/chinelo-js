@@ -1,6 +1,6 @@
-const prefix = 'admin/'
-const sufix = '/index.html'
-const time = 30
+const prefix = ''
+const sufix = ''
+const requestsTime = 15
 
 export default {
 	globalData: {
@@ -8,7 +8,7 @@ export default {
 		author: 'junior.alves@dr.com',
 		prefix: prefix,
 		sufix: sufix,
-		sessionTime: 10
+		sessionTime: 1
 	},
 	port: 3000,
 	siteIP: '0.0.0.0',
@@ -21,7 +21,7 @@ export default {
 	apiMode: false,
 	routeSufix: sufix,
 	globalRoutePrefix: prefix,
-	maxRequests: 3,
-	maxRequestsTime: time,
-	maxRequestsMessage: `Muitas requisições, por favor tente novamente em ${time} minutos!`
+	maxRequests: 100,
+	maxRequestsTime: requestsTime,
+	maxRequestsMessage: `Muitas requisições, por favor tente novamente em ${requestsTime} minutos!`
 }
