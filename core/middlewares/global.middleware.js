@@ -4,7 +4,6 @@ import cors from 'cors';
 import { rateLimit } from 'express-rate-limit';
 import { getRota } from '../helpers/routeHelper.js';
 import { auth } from '../../src/middlewares/auth.js';
-import config from '../../chinelo.config.js'
 
 export function setupGlobalMiddlewares(app, config) {
     app.use(session({
@@ -40,9 +39,9 @@ export function setupGlobalMiddlewares(app, config) {
 
     if (config.activeLimiter) {
         const limiter = rateLimit({
-            windowMs: config.maxRequestsTime * 60 * 1000,
-            max: config.maxRequests,
-            message: config.maxRequestsMessage
+            windowMs: 15 * 60 * 1000,
+            max: 500,
+            message: 'Muitas requisições, tente novamente em 15 minutos'
         });
         app.use(limiter);
     }
