@@ -1,5 +1,5 @@
-const prefix = 'casa/'
-const sufix = '/index.html'
+const prefix = ''
+const sufix = ''
 
 export default {
 	globalData: {
