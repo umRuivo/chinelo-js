@@ -1,10 +1,11 @@
-const prefix = ''
-const sufix = ''
+const prefix = 'admin/'
+const sufix = '/index.html'
+const time = 30
 
 export default {
 	globalData: {
 		siteName: 'Chinelo JS',
-		author: '@junior.php',
+		author: 'junior.alves@dr.com',
 		prefix: prefix,
 		sufix: sufix,
 		sessionTime: 10
@@ -19,5 +20,8 @@ export default {
 	activeLimiter: true,
 	apiMode: false,
 	routeSufix: sufix,
-	globalRoutePrefix: prefix
+	globalRoutePrefix: prefix,
+	maxRequests: 10,
+	maxRequestsTime: time,
+	maxRequestsMessage: `Muitas requisições, por favor tente novamente em ${time} minutos!`
 }

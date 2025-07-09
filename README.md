@@ -152,12 +152,20 @@ O servidor estará rodando em `http://localhost:3000` (ou na porta definida em `
 O arquivo `chinelo.config.js` permite customizar o comportamento da aplicação:
 
 *   `port`: Porta do servidor.
+*   `siteIP`: Endereço IP do servidor.
 *   `urlViews`: Diretório das views.
 *   `dirPublic`: Diretório de arquivos públicos.
 *   `templateEngine`: Motor de templates (ex: 'pug').
-*   `apiMode`: `true` para uma API JSON, `false` para uma aplicação web com views.
+*   `pageNotFound`: Nome do arquivo da view de página não encontrada.
+*   `msgNotFound`: Mensagem exibida quando a página não é encontrada.
 *   `activeLimiter`: Ativa ou desativa o limitador de requisições.
-*   ...e outras opções.
+*   `apiMode`: `true` para uma API JSON, `false` para uma aplicação web com views.
+*   `routeSufix`: Sufixo adicionado a todas as rotas (ex: '.asp').
+*   `globalRoutePrefix`: Prefixo global adicionado a todas as rotas (ex: 'admin/').
+*   `maxRequests`: Número máximo de requisições permitidas dentro do `maxRequestsTime`.
+*   `maxRequestsTime`: Tempo em minutos para o limite de requisições.
+*   `maxRequestsMessage`: Mensagem exibida quando o limite de requisições é excedido.
+*   `globalData`: Objeto contendo dados globais para as views, como `siteName`, `author`, `prefix`, `sufix` e `sessionTime`.
 
 ## Contribuindo
 

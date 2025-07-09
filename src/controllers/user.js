@@ -165,7 +165,7 @@ export function ola(req, res) {
 	res.send(`Greetings, ${name}!`)
 }
 
-export const mainPrefix = ''
+export const mainPrefix = 'quarto/'
 
 export const middlewares = [
 	['create', [validateUser,auth]],
