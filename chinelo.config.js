@@ -21,7 +21,7 @@ export default {
 	apiMode: false,
 	routeSufix: sufix,
 	globalRoutePrefix: prefix,
-	maxRequests: 10,
+	maxRequests: 3,
 	maxRequestsTime: time,
 	maxRequestsMessage: `Muitas requisições, por favor tente novamente em ${time} minutos!`
 }

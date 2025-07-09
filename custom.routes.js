@@ -11,4 +11,4 @@ const customRoutesList = [
 
 router.get('/', index)
 
-export { router, customRoutesList }
+export {router, customRoutesList }
