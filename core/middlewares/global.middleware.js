@@ -39,9 +39,9 @@ export function setupGlobalMiddlewares(app, config) {
 
     if (config.activeLimiter) {
         const limiter = rateLimit({
-            windowMs: 15 * 60 * 1000,
-            max: 500,
-            message: 'Muitas requisições, tente novamente em 15 minutos'
+            windowMs: config.maxRequestsTime * 60 * 1000,
+            max: config.maxRequests,
+            message: config.maxRequestsMessage
         });
         app.use(limiter);
     }
