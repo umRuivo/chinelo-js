@@ -1,14 +1,14 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import config from '../chinelo.config.js';
+import config from '../../chinelo.config.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const controllersPath = path.join(__dirname, '../src/controllers');
-const middlewaresPath = path.join(__dirname, '../src/middlewares');
-const outputPath = path.join(__dirname, '../export.routes.js');
+const controllersPath = path.join(__dirname, '../../src/controllers');
+const middlewaresPath = path.join(__dirname, '../../src/middlewares');
+const outputPath = path.join(__dirname, '../../export.routes.js');
 
 async function generateRoutesFile() {
     const controllerFiles = fs.readdirSync(controllersPath).filter(file => file.endsWith('.js'));
@@ -34,6 +34,8 @@ async function generateRoutesFile() {
 
         const mainPrefix = controllerModule.mainPrefix || '';
 
+        
+
         for (const methodName in controllerModule) {
             if (methodName === 'default' && typeof controllerModule.default === 'function') {
                 const handlerName = `${controllerName}Default`;
@@ -57,6 +59,8 @@ async function generateRoutesFile() {
                 const routePath = buildRoutePath(controllerName, methodName, routePrefix, mainPrefix, routeParams);
                 const handlerName = `${controllerName}_${methodName}`;
                 imports.add(`import { ${methodName} as ${handlerName} } from './src/controllers/${file}';`);
+
+                
 
                 let middlewareCalls = [];
                 if (middlewares.length > 0) {
