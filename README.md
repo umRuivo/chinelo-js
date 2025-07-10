@@ -48,28 +48,14 @@ Os middlewares que são aplicados a todas as rotas da aplicação foram centrali
 ├── public/                 # Arquivos estáticos (CSS, JS, imagens)
 ├── src/
 │   ├── controllers/        # Lógica de controle da aplicação
-│   ├── core/               # Core do sistema (autoRoutes.js)
 │   ├── middlewares/        # Middlewares de autenticação, validação, etc.
 │   ├── models/             # Lógica de acesso a dados (usando Prisma)
 │   └── views/              # Arquivos de template (Pug)
-├── chinelo.config.js       # Arquivo de configuração principal
-├── custom.routes.js        # Definição de rotas manuais
-├── server.js               # Ponto de entrada da aplicação
-└── package.json
-```
-
-## Estrutura do Projeto
-
-```
-/
-├── prisma/                 # Configuração e migrações do Prisma
-├── public/                 # Arquivos estáticos (CSS, JS, imagens)
-├── src/
-│   ├── controllers/        # Lógica de controle da aplicação
-│   ├── core/               # Core do sistema (autoRoutes.js)
-│   ├── middlewares/        # Middlewares de autenticação, validação, etc.
-│   ├── models/             # Lógica de acesso a dados (usando Prisma)
-│   └── views/              # Arquivos de template (Pug)
+├── core/
+│   ├── autoRoutes.js       # Core do sistema de auto-rotas
+│   ├── helpers/            # Funções auxiliares
+│   ├── middlewares/        # Middlewares globais do core
+│   └── scripts/            # Scripts de automação
 ├── chinelo.config.js       # Arquivo de configuração principal
 ├── custom.routes.js        # Definição de rotas manuais
 ├── server.js               # Ponto de entrada da aplicação
