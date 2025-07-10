@@ -63,6 +63,9 @@ export const routeParams = [
 </code></pre></li>
         </ul>
 
+        <h2>Middlewares Globais</h2>
+        <p>Os middlewares que são aplicados a todas as rotas da aplicação foram centralizados em <code>core/middlewares/global.middleware.js</code>. Isso inclui a configuração de sessão, parsers de corpo de requisição, arquivos estáticos, CORS, e o middleware de autenticação global (se aplicável). O handler de 404 também é definido no <code>server.js</code> após o registro de todas as rotas.</p>
+
         <h2>Estrutura do Projeto</h2>
 <pre><code>/
 ├── prisma/                 # Configuração e migrações do Prisma
@@ -106,10 +109,10 @@ bun install
             <li><strong>Inicie o servidor:</strong>
                 <ul>
                     <li><strong>Desenvolvimento (com hot-reload):</strong>
-<pre><code>npm run dev
+<pre><code>bun run export-routes && bun --hot server.js
 </code></pre></li>
                     <li><strong>Produção:</strong>
-<pre><code>npm start
+<pre><code>bun run export-routes && bun server.js
 </code></pre></li>
                 </ul>
             </li>
@@ -120,17 +123,20 @@ bun install
         <p>O arquivo <code>chinelo.config.js</code> permite customizar o comportamento da aplicação:</p>
         <ul>
             <li><code>port</code>: Porta do servidor.</li>
+            <li><code>siteIP</code>: Endereço IP do servidor.</li>
             <li><code>urlViews</code>: Diretório das views.</li>
             <li><code>dirPublic</code>: Diretório de arquivos públicos.</li>
             <li><code>templateEngine</code>: Motor de templates (ex: 'pug').</li>
+            <li><code>pageNotFound</code>: Nome do arquivo da view de página não encontrada.</li>
+            <li><code>msgNotFound</code>: Mensagem exibida quando a página não é encontrada.</li>
+            <li><code>activeLimiter</code>: Ativa ou desativa o limitador de requisições.</li>
             <li><code>apiMode</code>: <code>true</code> para uma API JSON, <code>false</code> para uma aplicação web com views.</li>
-            <li><code>activeLimiter</code>: Ativa ou desativa o limitador de requisições.
-            <li><code>routeSufix</code>: Sufixo adicionado a todas as rotas geradas automaticamente (ex: '.html', '.json').</li>
-            <li><code>globalRoutePrefix</code>: Prefixo global adicionado a todas as rotas geradas automaticamente (ex: '/api/').</li>
-            <li><code>siteIP</code>: Endereço IP no qual o servidor irá escutar (ex: '0.0.0.0' para todas as interfaces, ou '127.0.0.1' para localhost).</li>
-            <li><code>globalData</code>: Objeto com dados globais que podem ser acessados em todas as views (ex: nome do site, informações de contato).</li>
-            <li><code>sessionTime</code>: Define o tempo de duração da sessão em minutos. Utilizado para expirar sessões de usuários inativos.</li>
-            <li>...e outras opções.</li>
+            <li><code>routeSufix</code>: Sufixo adicionado a todas as rotas (ex: '/index.html').</li>
+            <li><code>globalRoutePrefix</code>: Prefixo global adicionado a todas as rotas (ex: 'admin/').</li>
+            <li><code>maxRequests</code>: Número máximo de requisições permitidas dentro do <code>maxRequestsTime</code>.</li>
+            <li><code>maxRequestsTime</code>: Tempo em minutos para o limite de requisições.</li>
+            <li><code>maxRequestsMessage</code>: Mensagem exibida quando o limite de requisições é excedido.</li>
+            <li><code>globalData</code>: Objeto contendo dados globais para as views, como <code>siteName</code>, <code>author</code>, <code>prefix</code>, <code>sufix</code> e <code>sessionTime</code>.</li>
         </ul>
 
         <h2>Contribuindo</h2>

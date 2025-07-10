@@ -138,11 +138,11 @@ const mismatchedParams = await getRota('user', 'show', ['id1', 'id2']); // Retor
 5.  **Inicie o servidor:**
     *   **Desenvolvimento (com hot-reload):**
         ```bash
-        npm run dev
+        bun run export-routes && bun --hot server.js
         ```
     *   **Produção:**
         ```bash
-        npm start
+        bun run export-routes && bun server.js
         ```
 
 O servidor estará rodando em `http://localhost:3000` (ou na porta definida em `chinelo.config.js`).
