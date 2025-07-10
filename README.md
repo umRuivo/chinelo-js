@@ -157,4 +157,4 @@ O arquivo `chinelo.config.js` permite customizar o comportamento da aplicação:
 
 Contribuições são bem-vindas! Sinta-se à vontade para abrir uma issue ou enviar um pull request.
 
-![Exemplo de uso](public/image/print.png)
+![Exemplo de uso](.github/images/print.png)
