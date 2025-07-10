@@ -41,14 +41,14 @@ router.delete('/product/deleteProduct/:uid', validateUid, auth, adminAuth, produ
 router.get('/product', product_index);
 router.get('/product/show', validateUid, product_show);
 router.put('/product/update', validateUid, validateProduct, auth, adminAuth, product_update);
-router.post('/asdfuser/create', validateUser, auth, user_create);
-router.post('/asdfuser/deleteUser/:uid', user_deleteUser);
-router.get('/asdfuser/edit/:uid', validateUid, auth, user_edit);
-router.get('/asdfuser', auth, user_index);
-router.get('/asdfuser/list', auth, user_list);
-router.get('/asdfuser/newUser', auth, user_newUser);
-router.get('/asdfdemo/user/ola/:name/:coisa', user_ola);
-router.get('/asdfuser/show/:uid', validateUid, user_show);
-router.post('/asdfuser/update/:uid', validateUid, validateUser, auth, user_update);
+router.post('/user/create', validateUser, auth, user_create);
+router.post('/user/deleteUser/:uid', user_deleteUser);
+router.get('/user/edit/:uid', validateUid, auth, user_edit);
+router.get('/user', auth, user_index);
+router.get('/user/list', auth, user_list);
+router.get('/user/newUser', auth, user_newUser);
+router.get('/demo/user/ola/:name/:coisa', user_ola);
+router.get('/user/show/:uid', validateUid, user_show);
+router.post('/user/update/:uid', validateUid, validateUser, auth, user_update);
 
 export { router };
