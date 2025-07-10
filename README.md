@@ -96,7 +96,7 @@ const mismatchedParams = await getRota('user', 'show', ['id1', 'id2']); // Retor
 
 1.  **Clone o repositório:**
     ```bash
-    git clone https://github.com/seu-usuario/chinelo-js.git
+    git clone https://github.com/umRuivo/chinelo-js.git
     cd chinelo-js
     ```
 
