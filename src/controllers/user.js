@@ -165,14 +165,13 @@ export function ola(req, res) {
 	res.send(`Greetings, ${name}!`)
 }
 
-export const mainPrefix = 'admin/'
+export const mainPrefix = 'asdf'
 
 export const middlewares = [
 	['create', [validateUser,auth]],
 	['newUser', [auth]],
 	['index', [auth]],
 	['list', [auth]],
-	['ola', [auth]],
 	['edit', [validateUid, auth]],
 	['update', [validateUid, validateUser, auth]],
 	['deleteUser', []],
@@ -183,8 +182,7 @@ export const httpMethods = [
 	['create', 'POST'],
 	['edit', 'GET'],
 	['update', 'POST'],
-	['deleteUser', 'POST'],
-	['ola', 'POST']
+	['deleteUser', 'POST']
 ]
 
 export const routeParams = [

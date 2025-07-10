@@ -1,4 +1,4 @@
-import fs from 'fs';
+import fs from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import config from '../../chinelo.config.js';
@@ -11,13 +11,23 @@ const middlewaresPath = path.join(__dirname, '../../src/middlewares');
 const outputPath = path.join(__dirname, '../../export.routes.js');
 
 async function generateRoutesFile() {
-    const controllerFiles = fs.readdirSync(controllersPath).filter(file => file.endsWith('.js'));
-    const middlewareFiles = fs.readdirSync(middlewaresPath).filter(file => file.endsWith('.js'));
+    try {
+        await fs.unlink(outputPath);
+        console.log('Arquivo export.routes.js anterior removido com sucesso.');
+    } catch (error) {
+        if (error.code !== 'ENOENT') {
+            console.error('Erro ao remover o arquivo export.routes.js anterior:', error);
+            return; 
+        }
+    }
+
+    const controllerFiles = (await fs.readdir(controllersPath)).filter(file => file.endsWith('.js'));
+    const middlewareFiles = (await fs.readdir(middlewaresPath)).filter(file => file.endsWith('.js'));
 
     const middlewareMap = new Map();
     for (const file of middlewareFiles) {
         const middlewarePath = path.join(middlewaresPath, file);
-        const middlewareModule = await import(`file://${middlewarePath}`);
+        const middlewareModule = await import(`file://${middlewarePath}?v=${Date.now()}`);
         for (const key in middlewareModule) {
             middlewareMap.set(key, `./src/middlewares/${file}`);
         }
@@ -100,7 +110,8 @@ async function generateRoutesFile() {
 
     fileContent += "\nexport { router };\n";
 
-    fs.writeFileSync(outputPath, fileContent);
+    console.log('Conteúdo a ser escrito no arquivo:', fileContent);
+    await fs.writeFile(outputPath, fileContent);
     console.log('✅ export.routes.js generated successfully!');
 }
 
@@ -159,8 +170,6 @@ function extractHttpMethod(methodName, httpMethods) {
         return 'PUT';
     } else if (methodLower.includes('delete') || methodLower.includes('remove') || methodLower.startsWith('delete')) {
         return 'DELETE';
-    } else if (methodLower.includes('patch') || methodLower.startsWith('patch')) {
-        return 'PATCH';
     } else {
         return 'GET';
     }
