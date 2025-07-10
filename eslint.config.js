@@ -3,6 +3,13 @@ import globals from 'globals'
 import { defineConfig } from 'eslint/config'
 
 export default defineConfig([
+	{
+		ignores: [
+			'public/**',
+			'node_modules/**',
+			'export.routes.js'
+		]
+	},
 	js.configs.recommended,
 
 	{

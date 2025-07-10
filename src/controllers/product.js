@@ -11,7 +11,7 @@ export async function index(req, res) {
 			total: products.length
 		})
 	} catch (error) {
-		res.status(500).json({ error: 'Erro ao listar produtos' })
+		res.status(500).json({ error: 'Erro ao listar produtos' + error })
 	}
 }
 
@@ -27,7 +27,7 @@ export async function show(req, res) {
 			data: product
 		})
 	} catch (error) {
-		res.status(500).json({ error: 'Erro ao buscar produto' })
+		res.status(500).json({ error: 'Erro ao buscar produto'  + error })
 	}
 }
 
@@ -47,7 +47,7 @@ export async function create(req, res) {
 			data: newProduct
 		})
 	} catch (error) {
-		res.status(500).json({ error: 'Erro ao criar produto' })
+		res.status(500).json({ error: 'Erro ao criar produto'  + error })
 	}
 }
 
@@ -65,7 +65,7 @@ export async function update(req, res) {
 			data: updatedProduct
 		})
 	} catch (error) {
-		res.status(500).json({ error: 'Erro ao atualizar produto' })
+		res.status(500).json({ error: 'Erro ao atualizar produto' + error  })
 	}
 }
 
@@ -78,7 +78,7 @@ export async function deleteProduct(req, res) {
 			message: 'Produto deletado com sucesso'
 		})
 	} catch (error) {
-		res.status(500).json({ error: 'Erro ao deletar produto' })
+		res.status(500).json({ error: 'Erro ao deletar produto'  + error })
 	}
 }
 

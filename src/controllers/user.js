@@ -1,20 +1,19 @@
 import { User } from '../models/User.js'
-import { auth, adminAuth } from '../middlewares/auth.js'
+import { auth } from '../middlewares/auth.js'
 import { validateUser, validateUid } from '../middlewares/validation.js'
-import config from './../../chinelo.config.js'
 import { getRota } from '../../core/helpers/routeHelper.js'
 
 export async function index(req, res) {
 	try {
 		const users = await User.findMany()
-		const newUserUrl = await getRota('user', 'newUser');
+		const newUserUrl = await getRota('user', 'newUser')
 
 		const usersWithUrls = await Promise.all(users.map(async user => ({
 			...user,
 			editUrl: await getRota('user', 'edit', [user.uid]),
 			showUrl: await getRota('user', 'show', [user.uid]),
 			deleteUrl: await getRota('user', 'deleteUser', [user.uid])
-		})));
+		})))
 
 		res.render('listUsers', { title: 'Lista de Usuários', users: usersWithUrls, newUserUrl })
 	} catch (error) {
@@ -26,14 +25,14 @@ export async function index(req, res) {
 export async function list(req, res) {
 	try {
 		const users = await User.findMany()
-		const newUserUrl = await getRota('user', 'newUser');
+		const newUserUrl = await getRota('user', 'newUser')
 
 		const usersWithUrls = await Promise.all(users.map(async user => ({
 			...user,
 			editUrl: await getRota('user', 'edit', [user.uid]),
 			showUrl: await getRota('user', 'show', [user.uid]),
 			deleteUrl: await getRota('user', 'deleteUser', [user.uid])
-		})));
+		})))
 
 		res.render('listUsers', { title: 'Lista de Usuários', users: usersWithUrls, newUserUrl })
 	} catch (error) {
@@ -49,8 +48,8 @@ export async function show(req, res) {
 		if (!user) {
 			return res.status(404).render('notfound', { title: 'Usuário não encontrado', message: 'Usuário não encontrado', statusCode: 404, globalData: req.app.locals.globalData })
 		}
-		const editUserUrl = await getRota('user', 'edit', [user.uid]);
-		const listUsersUrl = await getRota('user', 'list');
+		const editUserUrl = await getRota('user', 'edit', [user.uid])
+		const listUsersUrl = await getRota('user', 'list')
 		res.render('showUser', { title: 'Perfil do Usuário', user, globalData: req.app.locals.globalData, editUserUrl, listUsersUrl })
 	} catch (error) {
 		console.error('Erro ao buscar usuário para a view:', error)
@@ -65,7 +64,7 @@ export async function edit(req, res) {
 		if (!user) {
 			return res.status(404).json({ error: 'Usuário não encontrado' })
 		}
-		const updateUserUrl = await getRota('user', 'update', [user.uid]);
+		const updateUserUrl = await getRota('user', 'update', [user.uid])
 		res.render('editUser', { title: 'Editar Usuário', user, updateUserUrl })
 	} catch (error) {
 		console.error('Erro ao carregar formulário de edição:', error)
@@ -110,7 +109,7 @@ export async function create(req, res) {
 }
 
 export async function newUser(req, res) {
-	const createUserUrl = await getRota('user', 'create');
+	const createUserUrl = await getRota('user', 'create')
 	res.render('createUser', { title: 'Criar Usuário', createUserUrl })
 }
 

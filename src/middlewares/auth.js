@@ -1,4 +1,3 @@
-import config from '../../chinelo.config.js'
 import { getRota } from '../../core/helpers/routeHelper.js'
 
 export async function auth(req, res, next) {
@@ -14,7 +13,7 @@ export async function auth(req, res, next) {
 				error: 'Usuário não autenticado'
 			})
 		}
-		const loginUrl = await getRota('login');
+		const loginUrl = await getRota('login')
 		return res.redirect(loginUrl)
 	}
 

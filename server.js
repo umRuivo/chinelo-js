@@ -6,19 +6,19 @@ import { setupGlobalMiddlewares } from './core/middlewares/global.middleware.js'
 
 const app = express()
 
-setupGlobalMiddlewares(app, config);
+setupGlobalMiddlewares(app, config)
 
 const PORT = process.env.PORT || config.port
 app.use(customRoutes)
 
 await autoRoutes(app)
 Object.keys(app.locals.allRoutes).forEach(controllerName => {
-  customRoutesList.forEach(customRoute => {
-    if (customRoute.controller === controllerName) {
-      app.locals.allRoutes[controllerName].push(customRoute);
-    }
-  });
-});
+	customRoutesList.forEach(customRoute => {
+		if (customRoute.controller === controllerName) {
+			app.locals.allRoutes[controllerName].push(customRoute)
+		}
+	})
+})
 
 // 404 Handler - This should be the last middleware
 app.use((req, res) => {

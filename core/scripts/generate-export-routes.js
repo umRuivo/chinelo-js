@@ -1,190 +1,190 @@
-import fs from 'fs/promises';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import config from '../../chinelo.config.js';
+import fs from 'fs/promises'
+import path from 'path'
+import { fileURLToPath } from 'url'
+import config from '../../chinelo.config.js'
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
-const controllersPath = path.join(__dirname, '../../src/controllers');
-const middlewaresPath = path.join(__dirname, '../../src/middlewares');
-const outputPath = path.join(__dirname, '../../export.routes.js');
+const controllersPath = path.join(__dirname, '../../src/controllers')
+const middlewaresPath = path.join(__dirname, '../../src/middlewares')
+const outputPath = path.join(__dirname, '../../export.routes.js')
 
 async function generateRoutesFile() {
-    try {
-        await fs.unlink(outputPath);
-        console.log('Arquivo export.routes.js anterior removido com sucesso.');
-    } catch (error) {
-        if (error.code !== 'ENOENT') {
-            console.error('Erro ao remover o arquivo export.routes.js anterior:', error);
-            return; 
-        }
-    }
+	try {
+		await fs.unlink(outputPath)
+		console.log('Arquivo export.routes.js anterior removido com sucesso.')
+	} catch (error) {
+		if (error.code !== 'ENOENT') {
+			console.error('Erro ao remover o arquivo export.routes.js anterior:', error)
+			return
+		}
+	}
 
-    const controllerFiles = (await fs.readdir(controllersPath)).filter(file => file.endsWith('.js'));
-    const middlewareFiles = (await fs.readdir(middlewaresPath)).filter(file => file.endsWith('.js'));
+	const controllerFiles = (await fs.readdir(controllersPath)).filter(file => file.endsWith('.js'))
+	const middlewareFiles = (await fs.readdir(middlewaresPath)).filter(file => file.endsWith('.js'))
 
-    const middlewareMap = new Map();
-    for (const file of middlewareFiles) {
-        const middlewarePath = path.join(middlewaresPath, file);
-        const middlewareModule = await import(`file://${middlewarePath}?v=${Date.now()}`);
-        for (const key in middlewareModule) {
-            middlewareMap.set(key, `./src/middlewares/${file}`);
-        }
-    }
+	const middlewareMap = new Map()
+	for (const file of middlewareFiles) {
+		const middlewarePath = path.join(middlewaresPath, file)
+		const middlewareModule = await import(`file://${middlewarePath}?v=${Date.now()}`)
+		for (const key in middlewareModule) {
+			middlewareMap.set(key, `./src/middlewares/${file}`)
+		}
+	}
 
-    let imports = new Set();
-    let routes = [];
-    let middlewareImports = new Map();
+	let imports = new Set()
+	let routes = []
+	let middlewareImports = new Map()
 
-    for (const file of controllerFiles) {
-        const controllerName = path.basename(file, '.js');
-        const controllerPath = path.join(controllersPath, file);
-        const controllerModule = await import(`file://${controllerPath}?v=${Date.now()}`);
+	for (const file of controllerFiles) {
+		const controllerName = path.basename(file, '.js')
+		const controllerPath = path.join(controllersPath, file)
+		const controllerModule = await import(`file://${controllerPath}?v=${Date.now()}`)
 
-        const mainPrefix = controllerModule.mainPrefix || '';
-
-        
-
-        for (const methodName in controllerModule) {
-            if (methodName === 'default' && typeof controllerModule.default === 'function') {
-                const handlerName = `${controllerName}Default`;
-                imports.add(`import ${handlerName} from './src/controllers/${file}';`);
-                routes.push({
-                    httpMethod: 'get',
-                    routePath: '/',
-                    handler: handlerName,
-                    middlewares: []
-                });
-                continue;
-            }
+		const mainPrefix = controllerModule.mainPrefix || ''
 
 
-            if (typeof controllerModule[methodName] === 'function') {
-                const httpMethod = extractHttpMethod(methodName, controllerModule.httpMethods);
-                const routePrefix = extractRoutePrefix(methodName, controllerModule.routePrefixes);
-                const routeParams = extractRouteParams(methodName, controllerModule.routeParams);
-                const middlewares = extractMiddlewares(methodName, controllerModule.middlewares);
 
-                const routePath = buildRoutePath(controllerName, methodName, routePrefix, mainPrefix, routeParams);
-                const handlerName = `${controllerName}_${methodName}`;
-                imports.add(`import { ${methodName} as ${handlerName} } from './src/controllers/${file}';`);
+		for (const methodName in controllerModule) {
+			if (methodName === 'default' && typeof controllerModule.default === 'function') {
+				const handlerName = `${controllerName}Default`
+				imports.add(`import ${handlerName} from './src/controllers/${file}';`)
+				routes.push({
+					httpMethod: 'get',
+					routePath: '/',
+					handler: handlerName,
+					middlewares: []
+				})
+				continue
+			}
 
-                
 
-                let middlewareCalls = [];
-                if (middlewares.length > 0) {
-                    middlewares.forEach(mw => {
-                        const mwName = mw.name;
-                        if (mwName) {
-                            middlewareCalls.push(mwName);
-                            if (!middlewareImports.has(mwName)) {
-                                const mwPath = middlewareMap.get(mwName);
-                                if (mwPath) {
-                                    middlewareImports.set(mwName, `import { ${mwName} } from '${mwPath}';`);
-                                }
-                            }
-                        }
-                    });
-                }
+			if (typeof controllerModule[methodName] === 'function') {
+				const httpMethod = extractHttpMethod(methodName, controllerModule.httpMethods)
+				const routePrefix = extractRoutePrefix(methodName, controllerModule.routePrefixes)
+				const routeParams = extractRouteParams(methodName, controllerModule.routeParams)
+				const middlewares = extractMiddlewares(methodName, controllerModule.middlewares)
 
-                routes.push({
-                    httpMethod: httpMethod.toLowerCase(),
-                    routePath,
-                    handler: handlerName,
-                    middlewares: middlewareCalls
-                });
-            }
-        }
-    }
+				const routePath = buildRoutePath(controllerName, methodName, routePrefix, mainPrefix, routeParams)
+				const handlerName = `${controllerName}_${methodName}`
+				imports.add(`import { ${methodName} as ${handlerName} } from './src/controllers/${file}';`)
 
-    let fileContent = "import { Router } from 'express';\n";
-    fileContent += Array.from(imports).join('\n') + '\n';
-    fileContent += Array.from(middlewareImports.values()).join('\n') + '\n';
-    fileContent += "const router = Router();\n\n";
 
-    routes.forEach(route => {
-        const middlewareStr = route.middlewares.length > 0 ? `${route.middlewares.join(', ')}, ` : '';
-        fileContent += `router.${route.httpMethod}('${route.routePath}', ${middlewareStr}${route.handler});\n`;
-    });
 
-    fileContent += "\nexport { router };\n";
+				let middlewareCalls = []
+				if (middlewares.length > 0) {
+					middlewares.forEach(mw => {
+						const mwName = mw.name
+						if (mwName) {
+							middlewareCalls.push(mwName)
+							if (!middlewareImports.has(mwName)) {
+								const mwPath = middlewareMap.get(mwName)
+								if (mwPath) {
+									middlewareImports.set(mwName, `import { ${mwName} } from '${mwPath}';`)
+								}
+							}
+						}
+					})
+				}
 
-    console.log('Conteúdo a ser escrito no arquivo:', fileContent);
-    await fs.writeFile(outputPath, fileContent);
-    console.log('✅ export.routes.js generated successfully!');
+				routes.push({
+					httpMethod: httpMethod.toLowerCase(),
+					routePath,
+					handler: handlerName,
+					middlewares: middlewareCalls
+				})
+			}
+		}
+	}
+
+	let fileContent = 'import { Router } from \'express\';\n'
+	fileContent += Array.from(imports).join('\n') + '\n'
+	fileContent += Array.from(middlewareImports.values()).join('\n') + '\n'
+	fileContent += 'const router = Router();\n\n'
+
+	routes.forEach(route => {
+		const middlewareStr = route.middlewares.length > 0 ? `${route.middlewares.join(', ')}, ` : ''
+		fileContent += `router.${route.httpMethod}('${route.routePath}', ${middlewareStr}${route.handler});\n`
+	})
+
+	fileContent += '\nexport { router };\n'
+
+	console.log('Conteúdo a ser escrito no arquivo:', fileContent)
+	await fs.writeFile(outputPath, fileContent)
+	console.log('✅ export.routes.js generated successfully!')
 }
 
 function findInMetadata(methodName, metadataArray) {
-    if (!Array.isArray(metadataArray)) {
-        return undefined;
-    }
-    const entry = metadataArray.find(item => item[0] === methodName);
-    return entry ? entry[1] : undefined;
+	if (!Array.isArray(metadataArray)) {
+		return undefined
+	}
+	const entry = metadataArray.find(item => item[0] === methodName)
+	return entry ? entry[1] : undefined
 }
 
 function buildRoutePath(controllerName, methodName, routePrefix, mainPrefix, routeParams) {
-    if (controllerName === 'index') return '/';
+	if (controllerName === 'index') return '/'
 
-    let finalControllerName = controllerName;
+	let finalControllerName = controllerName
 
-    if (mainPrefix && !routePrefix) {
-        finalControllerName = `${mainPrefix}${controllerName}`;
-    }
+	if (mainPrefix && !routePrefix) {
+		finalControllerName = `${mainPrefix}${controllerName}`
+	}
 
-    if (routePrefix && !mainPrefix) {
-        finalControllerName = `${routePrefix}${controllerName}`;
-    }
+	if (routePrefix && !mainPrefix) {
+		finalControllerName = `${routePrefix}${controllerName}`
+	}
 
-    if (routePrefix && mainPrefix) {
-        finalControllerName = `${mainPrefix}${routePrefix}${controllerName}`;
-    }
+	if (routePrefix && mainPrefix) {
+		finalControllerName = `${mainPrefix}${routePrefix}${controllerName}`
+	}
 
-    let routePath;
-    if (methodName === 'index') {
-        routePath = `/${config.globalRoutePrefix}${finalControllerName}${config.routeSufix}`;
-    } else {
-        routePath = `/${config.globalRoutePrefix}${finalControllerName}/${methodName}${config.routeSufix}`;
-    }
+	let routePath
+	if (methodName === 'index') {
+		routePath = `/${config.globalRoutePrefix}${finalControllerName}${config.routeSufix}`
+	} else {
+		routePath = `/${config.globalRoutePrefix}${finalControllerName}/${methodName}${config.routeSufix}`
+	}
 
-    if (routeParams.length > 0) {
-        const paramsString = routeParams.map(param => `:${param}`).join('/');
-        if (methodName === 'index') {
-            routePath = `/${config.globalRoutePrefix}${finalControllerName}${config.routeSufix}/${paramsString}`;
-        } else {
-            routePath = `/${config.globalRoutePrefix}${finalControllerName}/${methodName}${config.routeSufix}/${paramsString}`;
-        }
-    }
+	if (routeParams.length > 0) {
+		const paramsString = routeParams.map(param => `:${param}`).join('/')
+		if (methodName === 'index') {
+			routePath = `/${config.globalRoutePrefix}${finalControllerName}${config.routeSufix}/${paramsString}`
+		} else {
+			routePath = `/${config.globalRoutePrefix}${finalControllerName}/${methodName}${config.routeSufix}/${paramsString}`
+		}
+	}
 
-    return routePath;
+	return routePath
 }
 
 function extractHttpMethod(methodName, httpMethods) {
-    const method = findInMetadata(methodName, httpMethods);
-    if (method) return method;
+	const method = findInMetadata(methodName, httpMethods)
+	if (method) return method
 
-    const methodLower = methodName.toLowerCase();
-    if (methodLower.includes('create') || methodLower.includes('store') || methodLower.startsWith('post')) {
-        return 'POST';
-    } else if (methodLower.includes('update') || methodLower.includes('edit') || methodLower.startsWith('put')) {
-        return 'PUT';
-    } else if (methodLower.includes('delete') || methodLower.includes('remove') || methodLower.startsWith('delete')) {
-        return 'DELETE';
-    } else {
-        return 'GET';
-    }
+	const methodLower = methodName.toLowerCase()
+	if (methodLower.includes('create') || methodLower.includes('store') || methodLower.startsWith('post')) {
+		return 'POST'
+	} else if (methodLower.includes('update') || methodLower.includes('edit') || methodLower.startsWith('put')) {
+		return 'PUT'
+	} else if (methodLower.includes('delete') || methodLower.includes('remove') || methodLower.startsWith('delete')) {
+		return 'DELETE'
+	} else {
+		return 'GET'
+	}
 }
 
 function extractRoutePrefix(methodName, routePrefixes) {
-    return findInMetadata(methodName, routePrefixes) || '';
+	return findInMetadata(methodName, routePrefixes) || ''
 }
 
 function extractRouteParams(methodName, routeParams) {
-    return findInMetadata(methodName, routeParams) || [];
+	return findInMetadata(methodName, routeParams) || []
 }
 
 function extractMiddlewares(methodName, middlewares) {
-    return findInMetadata(methodName, middlewares) || [];
+	return findInMetadata(methodName, middlewares) || []
 }
 
-generateRoutesFile().catch(console.error);
+generateRoutesFile().catch(console.error)

@@ -1,11 +1,11 @@
 
-import config from '../../chinelo.config.js';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import fs from 'fs';
+import config from '../../chinelo.config.js'
+import path from 'path'
+import { fileURLToPath } from 'url'
+import fs from 'fs'
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 /**
  * Generates a complete route string, automatically including parameters and substituting values.
@@ -16,87 +16,88 @@ const __dirname = path.dirname(__filename);
  * @returns {Promise<string>} The complete route string or 'rota inexistente'.
  */
 async function getRota(controllerName, methodName = 'index', paramValues = []) {
-  if (controllerName === 'index' && methodName === 'index') {
-    return '/';
-  }
-  const controllerPath = path.join(__dirname, '../../src/controllers', `${controllerName}.js`);
+	if (controllerName === 'index' && methodName === 'index') {
+		return '/'
+	}
+	const controllerPath = path.join(__dirname, '../../src/controllers', `${controllerName}.js`)
 
-  if (!fs.existsSync(controllerPath)) {
-    return 'rota inexistente';
-  }
+	if (!fs.existsSync(controllerPath)) {
+		return 'rota inexistente'
+	}
 
-  try {
-    const controllerModule = await import(`file://${controllerPath}`);
+	try {
+		const controllerModule = await import(`file://${controllerPath}`)
 
-    if (typeof controllerModule[methodName] !== 'function') {
-        // If the named method is not found, check for a default export
-        if (methodName === 'index' && typeof controllerModule.default === 'function') {
-            // If 'index' is the method and there's a default export, use it.
-            // No change to methodName, as the route path logic already handles 'index'.
-        } else {
-            return 'rota inexistente';
-        }
-    }
+		if (typeof controllerModule[methodName] !== 'function') {
+			// If the named method is not found, check for a default export
+			if (methodName === 'index' && typeof controllerModule.default === 'function') {
+				// If 'index' is the method and there's a default export, use it.
+				// No change to methodName, as the route path logic already handles 'index'.
+			} else {
+				return 'rota inexistente'
+			}
+		}
 
-    const mainPrefix = controllerModule.mainPrefix || '';
-    const routePrefix = findInMetadata(methodName, controllerModule.routePrefixes) || '';
-    const routeParams = findInMetadata(methodName, controllerModule.routeParams) || [];
+		const mainPrefix = controllerModule.mainPrefix || ''
+		const routePrefix = findInMetadata(methodName, controllerModule.routePrefixes) || ''
+		const routeParams = findInMetadata(methodName, controllerModule.routeParams) || []
 
-    // Validate number of parameters
-    if (paramValues.length > 0 && routeParams.length !== paramValues.length) {
-        return 'rota inexistente';
-    }
+		// Validate number of parameters
+		if (paramValues.length > 0 && routeParams.length !== paramValues.length) {
+			return 'rota inexistente'
+		}
 
-    let finalControllerName = controllerName;
+		let finalControllerName = controllerName
 
-    if (mainPrefix && !routePrefix) {
-        finalControllerName = `${mainPrefix}${controllerName}`;
-    }
+		if (mainPrefix && !routePrefix) {
+			finalControllerName = `${mainPrefix}${controllerName}`
+		}
 
-    if (routePrefix && !mainPrefix) {
-        finalControllerName = `${routePrefix}${controllerName}`;
-    }
+		if (routePrefix && !mainPrefix) {
+			finalControllerName = `${routePrefix}${controllerName}`
+		}
 
-    if (routePrefix && mainPrefix) {
-        finalControllerName = `${mainPrefix}${routePrefix}${controllerName}`;
-    }
+		if (routePrefix && mainPrefix) {
+			finalControllerName = `${mainPrefix}${routePrefix}${controllerName}`
+		}
 
-    let routePath;
-    if (methodName === 'index') {
-        routePath = `/${config.globalRoutePrefix}${finalControllerName}${config.routeSufix}`;
-    } else {
-        routePath = `/${config.globalRoutePrefix}${finalControllerName}/${methodName}${config.routeSufix}`;
-    }
+		let routePath
+		if (methodName === 'index') {
+			routePath = `/${config.globalRoutePrefix}${finalControllerName}${config.routeSufix}`
+		} else {
+			routePath = `/${config.globalRoutePrefix}${finalControllerName}/${methodName}${config.routeSufix}`
+		}
 
-    if (routeParams.length > 0) {
-        let paramsString;
-        if(paramValues.length > 0) {
-            paramsString = paramValues.join('/');
-        } else {
-            paramsString = routeParams.map(param => `:${param}`).join('/');
-        }
-        
-        if (methodName === 'index') {
-            routePath = `/${config.globalRoutePrefix}${finalControllerName}${config.routeSufix}/${paramsString}`;
-        } else {
-            routePath = `/${config.globalRoutePrefix}${finalControllerName}/${methodName}${config.routeSufix}/${paramsString}`;
-        }
-    }
+		if (routeParams.length > 0) {
+			let paramsString
+			if(paramValues.length > 0) {
+				paramsString = paramValues.join('/')
+			} else {
+				paramsString = routeParams.map(param => `:${param}`).join('/')
+			}
 
-    return routePath.replace(/\/\//g, '/'); // Clean up double slashes
+			if (methodName === 'index') {
+				routePath = `/${config.globalRoutePrefix}${finalControllerName}${config.routeSufix}/${paramsString}`
+			} else {
+				routePath = `/${config.globalRoutePrefix}${finalControllerName}/${methodName}${config.routeSufix}/${paramsString}`
+			}
+		}
 
-  } catch (error) {
-    // This catch block might still be useful for other import-related errors.
-    return 'rota inexistente';
-  }
+		return routePath.replace(/\/\//g, '/') // Clean up double slashes
+
+	} catch (error) {
+		console.error(error)
+		// This catch block might still be useful for other import-related errors.
+		return 'rota inexistente'
+	}
 }
 
 function findInMetadata(methodName, metadataArray) {
-    if (!Array.isArray(metadataArray)) {
-        return undefined;
-    }
-    const entry = metadataArray.find(item => item[0] === methodName);
-    return entry ? entry[1] : undefined;
+	if (!Array.isArray(metadataArray)) {
+		return undefined
+	}
+	const entry = metadataArray.find(item => item[0] === methodName)
+	return entry ? entry[1] : undefined
 }
 
-export { getRota };
+export { getRota }

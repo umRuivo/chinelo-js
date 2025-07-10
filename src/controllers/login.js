@@ -1,5 +1,4 @@
 import { User } from '../models/User.js'
-import config from '../../chinelo.config.js'
 import { getRota } from '../../core/helpers/routeHelper.js'
 
 function msg(params) {
@@ -7,18 +6,18 @@ function msg(params) {
 }
 
 export function logout(req, res) {
-	req.session.destroy(async (err) => {
+	req.session.destroy(async(err) => {
 		if (err) {
 			return res.status(500).send('Failed to log out')
 		}
-		const loginUrl = await getRota('login');
+		const loginUrl = await getRota('login')
 		res.redirect(loginUrl)
 	})
 }
 
 export async function index(req, res) {
 	msg('Acessando a página de login')
-	const loginPostUrl = await getRota('login', 'login');
+	const loginPostUrl = await getRota('login', 'login')
 	res.render('login', { title: 'Login', loginPostUrl: loginPostUrl })
 }
 
@@ -32,18 +31,18 @@ export async function login(req, res) {
 			if (req.is('json')) {
 				return res.status(401).json({ error: 'Email ou senha inválidos' })
 			}
-			return res.render('login', { title: 'Login', errorMessage: 'Email ou senha inválidos' });
+			return res.render('login', { title: 'Login', errorMessage: 'Email ou senha inválidos' })
 		}
 
 		req.session.user = { uid: user.uid, email: user.email, name: user.name, role: user.role }
 
-		
+
 		if (req.is('json')) {
 			return res.json({ success: true, message: 'Login bem-sucedido', user: { uid: user.uid, email: user.email, name: user.name } })
 		}
 
-		const userListUrl = await getRota('user', 'list');
-		res.redirect(userListUrl);
+		const userListUrl = await getRota('user', 'list')
+		res.redirect(userListUrl)
 
 	} catch (error) {
 		console.error('Erro durante o login:', error)
