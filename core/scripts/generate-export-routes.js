@@ -30,7 +30,7 @@ async function generateRoutesFile() {
     for (const file of controllerFiles) {
         const controllerName = path.basename(file, '.js');
         const controllerPath = path.join(controllersPath, file);
-        const controllerModule = await import(`file://${controllerPath}`);
+        const controllerModule = await import(`file://${controllerPath}?v=${Date.now()}`);
 
         const mainPrefix = controllerModule.mainPrefix || '';
 
