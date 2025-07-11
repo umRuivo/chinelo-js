@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O que é o Chinelo.js?</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">Chinelo JS</a>
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/userguide.html">User Guide</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/examples.html">Examples</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/whatis.html">What is it?</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main class="container mt-4">
+        <h1>O que é o Chinelo.js? (Uma explicação para leigos)</h1>
+        <p class="lead">Imagine que você está construindo uma casa de LEGO. Você tem um monte de peças de diferentes formas e tamanhos, e você quer construir algo legal sem ter que ler um manual de instruções gigante para cada pecinha.</p>
+
+        <p>Este projeto, que eu chamo de "Chinelo.js", é como uma caixa de LEGO mágica para construir sites e aplicativos. Ele te ajuda a organizar as peças (o seu código) de uma forma que o "Chinelo.js" entenda e monte tudo para você, automaticamente.</p>
+
+        <hr>
+
+        <h2>As Peças Mágicas (O que o projeto faz)</h2>
+        <p>O coração do "Chinelo.js" é um sistema de <strong>"Auto-Rotas"</strong>. Pense nas rotas como os caminhos para os diferentes cômodos da sua casa de LEGO. Se você quer ir para a "cozinha", você precisa de um caminho para a "cozinha". Em um site, se você quer ver a página de "usuários", você precisa de uma rota para "/usuarios".</p>
+        <p>Normalmente, você teria que dizer ao seu programa, um por um, como criar cada um desses caminhos. Com o "Chinelo.js", você só precisa criar os "cômodos" (que no código são chamados de <strong>"controllers"</strong>), e ele cria os caminhos para você, como mágica.</p>
+        <p>Por exemplo, se você criar um arquivo chamado <code>user.js</code> (o nosso "cômodo" dos usuários), o "Chinelo.js" automaticamente cria os caminhos para:</p>
+        <ul>
+            <li><code>/user/list</code>: Para ver a lista de todos os usuários.</li>
+            <li><code>/user/create</code>: Para criar um novo usuário.</li>
+            <li><code>/user/edit/123</code>: Para editar o usuário com o ID "123".</li>
+        </ul>
+        <p>Ele é inteligente o suficiente para adivinhar que se a função se chama <code>create</code>, ela provavelmente vai receber dados (um <code>POST</code>), e se chama <code>list</code>, ela vai mostrar dados (um <code>GET</code>).</p>
+
+        <hr>
+
+        <h2>A Planta da Casa (A Estrutura do Projeto)</h2>
+        <p>Todo projeto de construção precisa de uma planta. A do "Chinelo.js" é mais ou menos assim:</p>
+        <ul>
+            <li><code>server.js</code>: É a porta de entrada da sua casa. É aqui que o programa começa a rodar.</li>
+            <li><code>chinelo.config.js</code>: É o painel de controle da sua casa. Aqui você pode mudar coisas como a porta em que o site vai rodar (a "fechadura" da porta da frente), o nome do site, e outras configurações.</li>
+            <li><code>core/autoRoutes.js</code>: É o "mágico" que constrói os caminhos (as rotas) para você. Você não precisa mexer nele, ele só faz o trabalho sujo.</li>
+            <li><code>src/controllers</code>: É a pasta onde você coloca os seus "cômodos" (os arquivos como <code>user.js</code>, <code>product.js</code>, etc.). É aqui que você vai escrever a maior parte do seu código.</li>
+            <li><code>src/views</code>: É a pasta onde você guarda a "decoração" da sua casa (os arquivos que definem como as páginas vão se parecer para o usuário).</li>
+            <li><code>public</code>: É a pasta para as coisas que todo mundo pode ver, como imagens, folhas de estilo (CSS) e scripts (JavaScript).</li>
+        </ul>
+
+        <hr>
+
+        <h2>Como Funciona na Prática</h2>
+        <ol>
+            <li><strong>Você cria um "controller"</strong>: Por exemplo, <code>src/controllers/product.js</code>.</li>
+            <li><strong>Você escreve as "ações"</strong>: Dentro do <code>product.js</code>, você cria funções como <code>listAll()</code>, <code>showProduct(id)</code>, <code>createProduct()</code>.</li>
+            <li><strong>O "Chinelo.js" faz a mágica</strong>: Ele lê o seu arquivo <code>product.js</code> e cria as rotas:
+                <ul>
+                    <li><code>GET /product/listAll</code></li>
+                    <li><code>GET /product/showProduct/:id</code></li>
+                    <li><code>POST /product/createProduct</code></li>
+                </ul>
+            </li>
+            <li><strong>Você cria a "decoração"</strong>: Você cria os arquivos na pasta <code>src/views</code> para mostrar a lista de produtos, o formulário para criar um novo produto, etc.</li>
+        </ol>
+
+        <hr>
+
+        <h2>Em Resumo</h2>
+        <p>O "Chinelo.js" é uma ferramenta que te ajuda a construir a estrutura do seu site ou aplicativo de forma rápida e organizada, sem que você precise se preocupar com a parte chata de configurar cada caminho manualmente. Ele te dá a liberdade de focar no que realmente importa: a lógica do seu negócio (os "cômodos" e a "decoração" da sua casa de LEGO).</p>
+        <p>Espero que esta explicação tenha sido útil! Se tiver mais alguma dúvida, pode perguntar.</p>
+    </main>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
