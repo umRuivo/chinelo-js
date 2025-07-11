@@ -5,9 +5,9 @@
   "description": "Sistema de auto routes para Express.js",
   "main": "server.js",
   "scripts": {
-    "start": "bun run export.routes && bun server.js",
-    "dev": "bun --hot server.js",
-    "lint": "bun eslint . --fix",
+    "start": "npm run export.routes && node server.js",
+    "dev": "nodemon server.js",
+    "lint": "eslint . --fix",
     "export.routes": "node core/scripts/generate-export-routes.js"
   },
   "dependencies": {
