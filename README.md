@@ -103,10 +103,6 @@ const mismatchedParams = await getRota('user', 'show', ['id1', 'id2']); // Retor
 2.  **Instale as dependências:**
     ```bash
     npm install
-    # ou
-    yarn install
-    # ou
-    bun install
     ```
 
 3.  **Configure o ambiente:**
@@ -124,11 +120,11 @@ const mismatchedParams = await getRota('user', 'show', ['id1', 'id2']); // Retor
 5.  **Inicie o servidor:**
     *   **Desenvolvimento (com hot-reload):**
         ```bash
-        bun run export-routes && bun --hot server.js
+        npm run dev
         ```
     *   **Produção:**
         ```bash
-        bun run export-routes && bun server.js
+        npm start
         ```
 
 O servidor estará rodando em `http://localhost:3000` (ou na porta definida em `chinelo.config.js`).
