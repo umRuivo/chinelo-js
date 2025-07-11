@@ -40,6 +40,6 @@ app.listen(PORT, config.siteIP ,() => {
 	console.log(`
 🚀 Servidor rodando na porta ${PORT}`)
 	console.log(`
-📍 http://${config.siteIP}:${PORT}`)
+📍 http://localhost:${PORT}`)
 })
 
